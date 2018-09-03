@@ -1,0 +1,289 @@
+ul {
+    list-style-type: none;
+    margin: 1px;
+    padding: 1px;
+    overflow: hidden;
+    background-color: white;
+    border-bottom-style: ridge;
+    border-top-style: ridge; 
+    height: 60px;
+    position: sticky;
+    top: 0;
+    
+}
+
+li {
+    /* display: inline; */
+    float: left;
+}
+
+li a {
+    display: block;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: left;
+    padding: 6px 15px;
+
+    text-decoration: none;
+}
+
+.active {
+    background-color: #d61d1d;
+}
+
+.float_right {
+    float:right;
+}
+
+.button1 {
+    background-color:#87007c;
+    color: white;
+    font-size: 18px;
+    padding: 13px 30px;
+    border-radius: 4px;
+    border: 0px;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+
+} 
+.button1:hover {
+    background-color:white;
+    color: black;
+    border: 3px solid #87007c;
+}
+.site_name {
+    font-size: 25px;
+    color:#87007c;
+    font-weight: lighter;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: oblique;
+    padding-bottom: 20px;
+
+}
+
+/* typwrite css */
+.typewriter{
+    /* background-color: #87007c; */
+    width: 660px;
+    height: 60px;
+    position: absolute;
+    left: 280px;
+    padding-top: 20px;
+}
+.typewriter h3 {
+    color: #87007c;
+    font-family: monospace;
+    font-style: normal;
+    font-weight: 700;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid white; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(700, end),
+      blink-caret .5s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+  }
+
+
+  /* css for the div that holds the table */
+.div_table{
+    width: 800px;
+    position: absolute;
+    top:200px;
+    left: 220px;
+    padding-top: 20px;
+}
+  .menu_table {
+    width: 900px;
+    border-spacing: 10px 10px; 
+  }
+
+  .category{
+      position: relative;
+      width:300px;
+      height:250px;
+      padding-left: 0px;
+      overflow: hidden;
+      border-style: double;
+      border-color: #87007c;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
+
+.category .imgBox img{
+  transition: 3s;
+
+}
+.category:hover .imgBox img{
+    opacity: 0.3;
+    transform: translateY(-40px);
+  
+  }
+ 
+    .category .content{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 20px;
+        box-sizing: border-box;
+        transition:0.5s;
+    }
+
+    .category .content h3 {
+        font-size: 48px;
+        color: #fff;
+        font-weight: 700;
+    }
+   
+  .table_section{
+      padding-left: 40px;
+  }
+
+  /*manage image height and width*/
+  .images {
+      width: 400px;
+      height: 250px;
+      border-radius: 8px;
+  }
+  
+/* signup form css */
+.form {
+    background-color:#ffffff;
+    padding: 40px;
+    max-width:400px;
+    margin:40px auto;
+    border-radius:4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    display: none;
+    }
+
+    
+    .tab-content > div:last-child {
+    display:none;
+    }
+
+    h1 {
+        text-align:center;
+        color:#87007c;
+        font-weight:300;
+        margin:0 0 40px;
+        }
+        label {
+        position:absolute;
+        transform:translateY(-30px);
+        left:13px;
+        color:#87007c;
+        transition:all 0.25s ease;
+        -webkit-backface-visibility: hidden;
+        pointer-events: none;
+        font-size:18px;
+  
+     }
+
+     label.active {
+        transform:translateY(-40px);
+        left:2px;
+        font-size:14px;
+      
+        }
+
+        label.highlight {
+            color:#fff;
+     }
+
+     input, textarea {
+        font-size:22px;
+        display:block;
+        width:100%;
+        height:100%;
+        padding:5px 10px;
+        background:none;
+        background-image:none;
+        border:1px solid #a0b3b0;
+        color:black;
+        border-radius:0;
+        transition:border-color .25s ease, box-shadow .25s ease;
+        &:focus {
+                outline:0;
+        }
+        }
+
+        textarea {
+        border:2px solid #a0b3b0;
+        resize: vertical;
+        }
+
+        .field-wrap {
+        position:relative;
+        margin-bottom:40px;
+        }
+        .top-row {
+            &:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            > div {
+                float:left;
+                width:48%;
+                margin-right:4%;
+                &:last-child { 
+                margin:0;
+                }
+            }
+        }
+  
+         .signingup{
+            color: black;
+            height: 50px;
+            width: 100px;
+            border: 3px solid #87007c;
+            font-size: 16px;
+            float:right;
+            border-radius: 12px;
+        } 
+
+        .cancel_button{
+            color: black;
+            height: 50px;
+            width: 100px;
+            border: 3px solid #87007c;
+            font-size: 16px;
+            border-radius: 12px;
+        } 
+         .signingup:hover {
+        background-color: #87007c;
+        color: white;
+    }  
+    
+    .cancel_button:hover {
+        background-color: rgb(192, 17, 17);
+        color: white;
+        border: 0px;
+    }      
+/* signup form css */
+
+.login {
+    color: black;
+    height: 50px;
+    width: 425px;
+    border: 3px solid #87007c;
+    font-size: 16px;
+    border-radius: 12px; 
+}
+.login:hover {
+background-color: #87007c;
+color: white;
+}  
