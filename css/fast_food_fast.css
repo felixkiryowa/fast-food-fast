@@ -275,3 +275,13 @@ li a {
 background-color: #87007c;
 color: white;
 }  
+
+/* user dashboard css */
+.user_dashboard_navbar {
+
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+}
+/* user dashboard css */
+

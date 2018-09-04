@@ -26,11 +26,12 @@ document.getElementById("register").addEventListener("click",function(){
 
 //hide typewritter  div 
 function hide_typewriter_div(){
+    document.body.style.backgroundImage="url(images/burger.jpg)";
     document.getElementById("typewriter_div").style.display="none";
 }
 
 //specifying the time the div fadesout
-//setTimeout(hide_typewriter_div,9000);
+setTimeout(hide_typewriter_div,9000);
 
 document.getElementById("enter_account").addEventListener("click",function(){
     var content_area = document.getElementById('content_area');
@@ -44,4 +45,6 @@ document.getElementById("enter_account").addEventListener("click",function(){
     login_user_form.style.display="block";
     
 });
+
+
 
