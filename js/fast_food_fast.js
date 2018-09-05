@@ -1,49 +1,47 @@
-function display_test(){
+window.onscroll = function() {myFunction()};
 
-    var fast_food_fast_header = document.getElementById('site_header');
-    fast_food_fast_header.innerHTML = "";
-    fast_food_fast_header.innerHTML = "Make Your Order 24 / 7";
-    
-}
+var header = document.getElementById("site_navbar");
+var sticky = header.offsetTop;
 
-function display_original_test(){
-    var fast_food_fast_header = document.getElementById('site_header');
-    fast_food_fast_header.innerHTML = "";
-    fast_food_fast_header.innerHTML = "Fast-Food-Fast";
+function myFunction() {
+  if (window.pageYOffset > sticky) {  
+    header.classList.add("sticky");
+    document.getElementById("site_navbar").style.backgroundColor = "black";
+  } else {
+    header.classList.remove("sticky");
+    document.getElementById("site_navbar").style.backgroundColor = "";
+  }
 }
 //defining what happens when a user clicks the signup button
 document.getElementById("register").addEventListener("click",function(){
-   var content_area = document.getElementById('content_area');
-   var typewriter_div = document.getElementById('typewriter_div');
-   var signup_form = document.getElementById('signup_form');
-   var login_form = document.getElementById('site_login_form');
-   document.body.style.backgroundImage="url(images/background.jpg)";
-   login_form.style.display="none";
-   typewriter_div.style.display = "none";
-   content_area.style.display = "none";
-   signup_form.style.display = "block";
+    var all_sections = document.querySelectorAll("section");
+    var login_user_form = document.getElementById('site_login_form');
+    var site_signup_form = document.getElementById('site_signup_form');
+    document.body.style.backgroundImage="url(images/background.jpg)";
+    var i;
+    for (i = 0; i < all_sections.length; i++) {
+        all_sections[i].style.display = "none";
+    }
+    
+    login_user_form.style.display = "none";
+    site_signup_form.style.display = "block";
+     
 });
 
-//hide typewritter  div 
-function hide_typewriter_div(){
-    document.body.style.backgroundImage="url(images/burger.jpg)";
-    document.getElementById("typewriter_div").style.display="none";
-}
-
-//specifying the time the div fadesout
-setTimeout(hide_typewriter_div,9000);
-
+//Adding action when user clicks on the login link in navbar
 document.getElementById("enter_account").addEventListener("click",function(){
-    var content_area = document.getElementById('content_area');
-    var typewriter_div = document.getElementById('typewriter_div');
-    var signup_form = document.getElementById('signup_form');
+    var all_sections = document.querySelectorAll("section");
     var login_user_form = document.getElementById('site_login_form');
+    var site_signup_form = document.getElementById('site_signup_form');
     document.body.style.backgroundImage="url(images/background.jpg)";
-    typewriter_div.style.display = "none";
-    content_area.style.display = "none";
-    signup_form.style.display = "none";
-    login_user_form.style.display="block";
-    
+    var i;
+    for (i = 0; i < all_sections.length; i++) {
+        all_sections[i].style.display = "none";
+    }
+    site_signup_form.style.display="none";
+    login_user_form.style.display = "block";
+
+     
 });
 
 
