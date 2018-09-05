@@ -362,6 +362,13 @@ div.desc {
     border: 3px solid red;
 }
 /* make order button */
+/* search field */
+.search_div {
+    width:400px;
+    height:50px;
+    float: right;
+}
+/* search field */
 /* card css */
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
