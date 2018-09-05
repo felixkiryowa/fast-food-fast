@@ -12,6 +12,22 @@ function myFunction() {
     document.getElementById("site_navbar").style.backgroundColor = "";
   }
 }
+// make order function
+function MakeOrder(){
+    var make_order = document.getElementById("make_order");
+    var content_holder = document.getElementById("content_holder");
+    content_holder.style.display ="none";
+    make_order.style.display = "block";
+    
+}
+//returning back to home
+function BackHome(){
+    var make_order = document.getElementById("make_order");
+    var content_holder = document.getElementById("content_holder");
+    make_order.style.display = "none"; 
+    content_holder.style.display ="block";
+     
+}
 //defining what happens when a user clicks the signup button
 document.getElementById("register").addEventListener("click",function(){
     var all_sections = document.querySelectorAll("section");

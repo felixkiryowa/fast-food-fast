@@ -247,6 +247,46 @@ h2{
      background-color: #000;
  }
  /* user dashboard navbar css */
+ /* submit order css */
+ .bg-img {
+    /* The image used */
+    background-image: url("../images/drinks.jpg");
+
+    min-height: 380px;
+    display: none;
+
+    /* Center and scale the image nicely */
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+/* Set a style for the submit button */
+.btn {
+    background-color:#fb2525;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+
+/* Add styles to the form container */
+.container_form {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    max-width: 300px;
+    padding: 16px;
+    background-color: white;
+}
+ /* submit ordet css */
+
+ h2 {
+     color: #000;
+ }
  /* put columns */
  /* Create two equal columns that floats next to each other */
 .column {

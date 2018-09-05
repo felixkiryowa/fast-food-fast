@@ -11,7 +11,7 @@
               <h2>Fast-Food-Fast</h2>
           </div>
           <ul>
-              <li><a href="#" class="active">Home</a></li>
+              <li onclick="BackHome()"><a href="#" class="active">Home</a></li>
               <li><a href="#">History</a></li>
               <li>
                   <div class="dropdown">
@@ -32,7 +32,7 @@
         <br>
         <br>
         
-        <div class="holder">
+        <div class="holder" id="content_holder">
             <div class="search_div">
                 <form>
                    <input type="text" name="" placeholder="Search For Food">
@@ -49,7 +49,7 @@
                 <div class="desc">
                   <p><b>Pizza</b></p>
                   <p><b>40,000 Shs</b></p>
-                  <button class="make_order">Make Order</button>
+                  <button class="make_order" onclick="MakeOrder()">Make Order</button>
                 </div>
               </div>
               <div class="gallery">
@@ -59,7 +59,7 @@
                   <div class="desc">
                       <p><b>Burger</b></p>
                       <p><b>20,000 Shs</b></p>
-                      <button class="make_order">Make Order</button>
+                      <button class="make_order" onclick="MakeOrder()">Make Order</button>
                   </div>
                 </div>
                 <div class="gallery">
@@ -69,7 +69,7 @@
                     <div class="desc">
                         <p><b>Pilawoo</b></p>
                         <p><b>20,000 Shs</b></p>
-                        <button class="make_order">Make Order</button>
+                        <button class="make_order" onclick="MakeOrder()">Make Order</button>
                     </div>
                   </div>
                   <div class="gallery">
@@ -79,7 +79,7 @@
                       <div class="desc">
                           <p><b>Burger</b></p>
                           <p><b>35,000 Shs</b></p>
-                          <button class="make_order">Make Order</button>
+                          <button class="make_order" onclick="MakeOrder()">Make Order</button>
                       </div>
                     </div>
                     <div class="gallery">
@@ -89,7 +89,7 @@
                         <div class="desc">
                             <p><b>Burger</b></p>
                             <p><b>20,000 Shs</b></p>
-                            <button class="make_order">Make Order</button>
+                            <button class="make_order" onclick="MakeOrder()">Make Order</button>
                         </div>
                     </div>
                     <div class="gallery">
@@ -99,7 +99,7 @@
                         <div class="desc">
                             <p><b>Goat Meat</b></p>
                             <p><b>18,000 Shs</b></p>
-                            <button class="make_order">Make Order</button>
+                            <button class="make_order" onclick="MakeOrder()">Make Order</button>
                         </div>
                       </div>
                       <div class="gallery">
@@ -109,7 +109,7 @@
                           <div class="desc">
                               <p><b>Coffee</b></p>
                               <p><b>15,000 Shs</b></p>
-                              <button class="make_order">Make Order</button>
+                              <button class="make_order" onclick="MakeOrder()">Make Order</button>
                           </div>
                       </div>
                       <div class="gallery">
@@ -119,7 +119,7 @@
                           <div class="desc">
                               <p><b>Fresh Juice</b></p>
                               <p><b>20,000 Shs</b></p>
-                              <button class="make_order">Make Order</button>
+                              <button class="make_order" onclick="MakeOrder()">Make Order</button>
                           </div>
                       </div>
                       <br>
@@ -137,6 +137,21 @@
                           <a href="#">&raquo;</a>
                         </div>
             </div>
+
+            <div class="bg-img" id="make_order">
+                <form action="" class="container_form">
+                  <h2 align="center">Submit Order</h2>
+                  <label for="food_name"><b>Food Name</b></label>
+                  <input type="text" placeholder="Enter Food Name" name="food_name" 
+              required>
+                  <label for="Quantinty"><b>Quantity</b></label>
+                  <input type="text" placeholder="Enter Quantinty" name="quantity" 
+              required>
+                 <p>Total Amount : <b>Goes Here.....</b></p>
+                  <br>
+                  <input type="submit" class="btn" value="Order"></button>
+                </form>
+              </div>
             
   </body>
   <script src="js/fast_food_fast.js" ></script>
