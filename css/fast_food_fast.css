@@ -346,6 +346,22 @@ div.desc {
     text-align: center;
 }
 /* foood gallery css */
+/* make order button */
+.make_order {
+    background-color: red;
+    color:#fff;
+    height: 30px;
+    width: 100px;
+    border: 0;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.make_order:hover {
+    background-color:#fff;
+    color: black;
+    border: 3px solid red;
+}
+/* make order button */
 /* card css */
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
