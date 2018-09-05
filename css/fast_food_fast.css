@@ -170,21 +170,6 @@ h2{
      color:#000;
  }
 
- /* sticky navbar */
- .content {
-    padding: 16px;
-  }
-  
-  .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-  
-  .sticky + .content {
-    padding-top: 102px;
-  }
- /* sticky navbar */
  /* signup form */
  .signupBox {
     width: 700px;
@@ -257,6 +242,11 @@ h2{
      color:#000;
  }
  /* signup form */
+ /* user dashboard navbar css */
+ .user_dasboard_nav {
+     background-color: #000;
+ }
+ /* user dashboard navbar css */
  /* put columns */
  /* Create two equal columns that floats next to each other */
 .column {
@@ -277,6 +267,7 @@ h2{
 
 /* center name  */
 .center_name {
+    color: #fff;
     padding-top:20px;
 }
 /* center name */
@@ -335,7 +326,11 @@ div.gallery {
     width: 200px;
 }
 
+
 div.gallery:hover {
+    border-style: double;
+    border-color: #87007c;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     border: 1px solid #777;
 }
 
@@ -371,9 +366,7 @@ div.desc {
 /* card css */
 /* product paginations */
 .pagination {
-    position: absolute;
-    top:700px;
-    left: 500px;
+    padding-left: 300px;
     display: inline-block;
 }
 
@@ -406,10 +399,21 @@ div.desc {
   
   .content {
     left: 150px;
+    position: absolute;
+    left: 100px;
     height: 500px;
-    padding-left: 200px;
-    width: 1000px;
-    padding: 16px;
+    padding-left: 0px;
+    width: 900px;
+    
+  }
+  .holder {
+    left: 150px;
+    position: absolute;
+    left: 200px;
+    height: 540px;
+    padding-left: 14px;
+    width: 880px;
+    
   }
   
   .sticky {
