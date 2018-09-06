@@ -397,6 +397,16 @@ table {
     border-radius: 3px;
 
 }
+.button_disabled {
+    
+    float:right;
+    border:2px solid red;
+    width: 100px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 3px;
+
+}
 /* customer orders div */
 /* drop down css */
 .dropdown {
