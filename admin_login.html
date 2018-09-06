@@ -12,15 +12,15 @@
      <div class="loginBox">
          <img src="images/user.png" class="avarta">
          <h1 class="login_header">Login Here</h1>
-         <form method="POST" action="">
+         <form>
              <p>Email Address</p>
-             <input type="email" name="" placeholder="Enter Email Address" required>
+             <input type="email" id="user_email"  placeholder="Enter Email Address" required>
              <p>Password</p>
-             <input type="password" name="" placeholder="Enter Password" required>
-             <input type="submit" name="" value="Login">
-             <a href="#">Lost Your Password ?<br>
-             <a href="#">Dont Have An Account ?</a>
+             <input type="password" id="user_password"  placeholder="Enter Password" required>
          </form>
+         <button class="submit_button"  onclick="authenticateadmins()">Login</button>
+         <a href="#">Lost Your Password ?<br>
+         <a href="#">Dont Have An Account ?</a>
      </div>
   </body>
   <script src="js/fast_food_fast.js" ></script>

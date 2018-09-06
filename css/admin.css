@@ -151,7 +151,7 @@ h2{
     color: #000;
     font-size: 16px;
 }
-.loginBox input[type="submit"] {
+/* .loginBox input[type="submit"] {
    border: none;
    outline: none;
    height: 40px;
@@ -160,6 +160,21 @@ h2{
    font-size: 18px;
 }
 .loginBox input[type="submit"]:hover {
+    cursor: pointer;
+    background: #87007c;
+    color: #fff;
+
+ } */
+ .submit_button {
+   border: none;
+   outline: none;
+   height: 40px;
+   width: 100%;
+   background: #fb2525;
+   color: #fff;
+   font-size: 18px;
+}
+.submit_button:hover {
     cursor: pointer;
     background: #87007c;
     color: #fff;
