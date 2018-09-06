@@ -1,17 +1,3 @@
-window.onscroll = function() {myFunction()};
-
-var header = document.getElementById("site_navbar");
-var sticky = header.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset > sticky) {  
-    header.classList.add("sticky");
-    document.getElementById("site_navbar").style.backgroundColor = "black";
-  } else {
-    header.classList.remove("sticky");
-    document.getElementById("site_navbar").style.backgroundColor = "";
-  }
-}
 // make order function
 function MakeOrder(){
     var make_order = document.getElementById("make_order");
@@ -93,6 +79,34 @@ function AddNewItem(){
     customer_orders.style.display="none";
     addItem.style.display = "block";
 }
+//authenticating admins
+function authenticateadmins(){
+    var user_email = document.getElementById("user_email").value;
+    var user_password = document.getElementById("user_password").value;
+    if(user_email === "admin@gmail.com" && user_password === "admin123"){
+        //redirecting to user dashboard
+         window.location.href="admin_dashboard.html";
+        //console.log("Fine");
+    }else{
+         //window.location.href="user_dashboard.html";
+         alert("Invalid Email or Password!");
+    }
+}
+//authenticating users
+function authenticateusers(){
+    var user_email = document.getElementById("user_email").value;
+    var user_password = document.getElementById("user_password").value;
+    
+    if(user_email === "user@gmail.com" && user_password === "user123"){
+        //redirecting to user dashboard
+         window.location.href="user_dashboard.html";
+        //console.log("Fine");
+    }else{
+         //window.location.href="user_dashboard.html";
+         alert("Invalid Email or Password!");
+    }
+}
+
 //defining what happens when a user clicks the signup button
 document.getElementById("register").addEventListener("click",function(){
     var all_sections = document.querySelectorAll("section");

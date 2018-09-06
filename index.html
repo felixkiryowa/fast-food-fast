@@ -63,15 +63,17 @@
      <div class="loginBox" id="site_login_form">
       <img src="images/user.png" class="avarta">
       <h1 class="login_header">Login Here</h1>
-      <form method="POST" action="">
+      <form>
           <p>Email Address</p>
-          <input type="email" name="" placeholder="Enter Email Address" required>
+          <input type="email" name="" id="user_email" placeholder="Enter Email Address" required>
           <p>Password</p>
-          <input type="password" name="" placeholder="Enter Password" required>
-          <input type="submit" name="" value="Login">
-          <p align="center"><a href="#">Lost Your Password ?</a></p><<br>
-          <p align="center"><a href="#">Dont Have An Account ?</a></p>
+          <input type="password" id="user_password" name="" placeholder="Enter Password" required>
+          
       </form>
+      <button class="submit_button" onclick="authenticateusers()">Login</button>
+       <br>
+      <p align="center"><a href="#">Lost Your Password ?</a></p><<br>
+      <p align="center"><a href="#">Dont Have An Account ?</a></p>
     </div>
     <!-- login form -->
     <!-- signup form -->
