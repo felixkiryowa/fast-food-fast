@@ -44,7 +44,7 @@
         <tr>
           <td>Pizza</td>
           <td>40,000shs</td>		
-          <td><button class="edit_button">Edit Item</button></td>
+          <td><button class="edit_button" onclick="EditItem()">Edit Item</button></td>
           <td><button class="delete_button" onclick="ItemDeleted()">Delete Item</button></td>
         </tr>
         <tr>
@@ -144,6 +144,21 @@
          </div>
      </div>
      <!-- form to add new items -->
+     <!-- form to edit fast-food-fast items -->
+     <div class="add_fast_food_item" id="EditItem">
+        <div class="loginBox">
+            <h1 class="login_header">Fast-Food-Fast</h1>
+            <p class="myparagraph">Edit fast-food-fast Item</p>
+            <form method="POST" action="">
+                <p>Enter Item Name</p>
+                <input type="text" name="" id="edit_item_name" placeholder="Enter Item Name" required>
+                <p>Price</p>
+                <input type="text" name="" id="edit_item_price" placeholder="Enter Item Price" required>
+                <input type="submit" name="" value="Edit Fast-Food-Item">
+            </form>
+        </div>
+    </div>
+     <!-- form to edit fast-food-fast items -->
   </body>
   <script src="js/fast_food_fast.js" ></script>
 </html>

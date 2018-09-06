@@ -43,25 +43,47 @@ function ViewHistory(){
 }
 //manage fast-food-items
 function ManageItems(){
+    var EditItem = document.getElementById("EditItem");
     var addItem = document.getElementById("addItem");
     var food_items = document.getElementById("food_items");
     var customer_orders = document.getElementById("customer_orders");
     addItem.style.display ="none";
     customer_orders.style.display="none";
+    EditItem.style.display="none";
     food_items.style.display="block";
 
 }
 //manage orders
 function ManageOrders(){
+    var EditItem = document.getElementById("EditItem");
     var addItem = document.getElementById("addItem");
     var food_items = document.getElementById("food_items");
     var customer_orders = document.getElementById("customer_orders");
     addItem.style.display ="none";
     food_items.style.display="none";
+    EditItem.style.display="none";
     customer_orders.style.display="block";
 }
-//function to delete food items
+//function to delete fast-food-fast items
+function ItemDeleted(){
+    alert("Item deleted");
+}
+//function to edit fast-food-items
+function EditItem(){
+    var EditItem = document.getElementById("EditItem");
+    var addItem = document.getElementById("addItem");
+    var food_items = document.getElementById("food_items");
+    var customer_orders = document.getElementById("customer_orders");
+    var edit_item_name = document.getElementById("edit_item_name");
+    var edit_item_price = document.getElementById("edit_item_price");
+    addItem.style.display ="none";
+    food_items.style.display="none";
+    customer_orders.style.display="none";
+    edit_item_name.value = "Pizza";
+    edit_item_price.value ="40000";
+    EditItem.style.display ="block";
 
+}
 //adding a food item
 function AddNewItem(){
     var addItem = document.getElementById("addItem");
