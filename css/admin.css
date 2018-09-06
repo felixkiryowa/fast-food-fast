@@ -301,7 +301,6 @@ table {
     top:170px;
     left:120px;
     padding:10px;
-    display: none;
 }
 
 .add_new_item_button {
@@ -346,6 +345,7 @@ table {
     left:40px;
     padding:10px;
     overflow: scroll;
+    display: none;
 }
 .button_accept_order {
     
@@ -381,3 +381,57 @@ table {
 
 }
 /* customer orders div */
+/* drop down css */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    z-index: 9999999;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+/* drop down css */
+/* center name  */
+.center_name {
+    color: #fff;
+    padding-top:15px;
+}
+/* center name */
+/* admin login form css */
+.admin_login_form {
+    background-color:black;
+    height:100px;
+    padding-top: 20px;
+}
+
+/* add fast-food-item */
+.add_fast_food_item {
+    height:auto;
+    width:1030px;
+    position: absolute;
+    top:370px;
+    left:120px;
+    padding:10px;
+    display: none;
+}
+.myparagraph {
+    color:#000;
+}

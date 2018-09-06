@@ -41,6 +41,36 @@ function ViewHistory(){
     content_holder.style.display ="none";
     order_history.style.display = "block"
 }
+//manage fast-food-items
+function ManageItems(){
+    var addItem = document.getElementById("addItem");
+    var food_items = document.getElementById("food_items");
+    var customer_orders = document.getElementById("customer_orders");
+    addItem.style.display ="none";
+    customer_orders.style.display="none";
+    food_items.style.display="block";
+
+}
+//manage orders
+function ManageOrders(){
+    var addItem = document.getElementById("addItem");
+    var food_items = document.getElementById("food_items");
+    var customer_orders = document.getElementById("customer_orders");
+    addItem.style.display ="none";
+    food_items.style.display="none";
+    customer_orders.style.display="block";
+}
+//function to delete food items
+
+//adding a food item
+function AddNewItem(){
+    var addItem = document.getElementById("addItem");
+    var food_items = document.getElementById("food_items");
+    var customer_orders = document.getElementById("customer_orders");
+    food_items.style.display="none";
+    customer_orders.style.display="none";
+    addItem.style.display = "block";
+}
 //defining what happens when a user clicks the signup button
 document.getElementById("register").addEventListener("click",function(){
     var all_sections = document.querySelectorAll("section");

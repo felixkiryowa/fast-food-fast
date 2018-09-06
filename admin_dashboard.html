@@ -14,14 +14,24 @@
             <h2>Fast-Food-Fast</h2>
         </div>
         <ul>
-            <li><a href="#" id="register" class="active" >Manage Items</a></li>
-            <li><a href="#" id="register" >Manage Orders</a></li>
+            <li onclick="ManageItems()"><a href="#"  class="active" >Manage Items</a></li>
+            <li onclick="ManageOrders()"><a href="#" >Manage Orders</a></li>
+            <li>
+                <div class="dropdown">
+                    <p class="center_name" >
+                      Logged in as :  Francis Kiryowa
+                    </p>
+                  <div class="dropdown-content">
+                      <a href="index.html">Logout</a>
+                  </div>
+                </div>
+            </li>
         </ul>
      </nav> 
-     <div class="food_items_div">
+     <div class="food_items_div" id="food_items">
       <h3>Fast-Food-Items</h3>
       <hr>
-      <button class="add_new_item_button">Add new Item</button>
+      <button class="add_new_item_button" onclick="AddNewItem()">Add new Item</button>
       <br>
       <br>
       <table class="items_table">
@@ -35,7 +45,7 @@
           <td>Pizza</td>
           <td>40,000shs</td>		
           <td><button class="edit_button">Edit Item</button></td>
-          <td><button class="delete_button">Delete Item</button></td>
+          <td><button class="delete_button" onclick="ItemDeleted()">Delete Item</button></td>
         </tr>
         <tr>
           <td>Burger</td>
@@ -59,7 +69,7 @@
       </table>
      </div>
      <!-- customer orders -->
-     <div class="customer_orders_div">
+     <div class="customer_orders_div" id="customer_orders">
       <h3>Customer Orders</h3>
       <hr>
       <br>
@@ -119,6 +129,21 @@
       </table>
      </div>
      <!-- customer orders -->
+     <!-- form to add new items -->
+     <div class="add_fast_food_item" id="addItem">
+         <div class="loginBox">
+             <h1 class="login_header">Fast-Food-Fast</h1>
+             <p class="myparagraph">Add new fast-food-fast Item</p>
+             <form method="POST" action="">
+                 <p>Enter Item Name</p>
+                 <input type="text" name="" placeholder="Enter Item Name" required>
+                 <p>Price</p>
+                 <input type="text" name="" placeholder="Enter Item Price" required>
+                 <input type="submit" name="" value="Add Fast-Food-Item">
+             </form>
+         </div>
+     </div>
+     <!-- form to add new items -->
   </body>
   <script src="js/fast_food_fast.js" ></script>
 </html>
