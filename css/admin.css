@@ -4,7 +4,7 @@ body {
     font-family: sans-serif;
 }
 nav {
-    position: fixed;
+    /* position: fixed; */
     top:0;
     left: 0;
     width: 100%;
@@ -13,6 +13,8 @@ nav {
     box-sizing: border-box;
     transition: .5s;
     background-color: #000;
+    position:absolute; 
+    z-index:1;
 }
 
 nav .logo {
@@ -388,9 +390,10 @@ table {
 }
 
 .dropdown-content {
+    right: 0;
     display: none;
     position: fixed;
-    background-color: #f1f1f1;
+    background-color: #fff;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     box-sizing: border-box;
@@ -404,7 +407,10 @@ table {
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+    color: #000;
+}
 
 .dropdown:hover .dropdown-content {display: block;}
 
@@ -434,4 +440,19 @@ table {
 }
 .myparagraph {
     color:#000;
+}
+
+.search_div {
+    width:400px;
+    height:50px;
+    float: right;
+}
+.make_order {
+    background-color: red;
+    color:#fff;
+    height: 30px;
+    width: 100px;
+    border: 0;
+    font-size: 14px;
+    border-radius: 4px;
 }
