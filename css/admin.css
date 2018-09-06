@@ -293,3 +293,46 @@ table {
     padding: 5px 15px;
   }
 /* admin dashboard css */
+/* food items div */
+.food_items_div {
+    height:auto;
+    width:1030px;
+    position: absolute;
+    top:170px;
+    left:120px;
+    padding:10px;
+}
+
+.add_new_item_button {
+    float:right;
+    background-color:#4caf50;
+    border:0;
+    width: 120px;
+    height: 30px;
+    color: #fff;
+    border-radius: 3px;
+}
+.items_table {
+    width:100%;
+}
+.edit_button {
+    float:right;
+    background-color:rgb(255, 136, 0);
+    border:0;
+    width: 120px;
+    height: 30px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.delete_button {
+    float:right;
+    background-color:red;
+    border:0;
+    width: 120px;
+    height: 30px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+/* food items div */
