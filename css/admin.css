@@ -301,6 +301,7 @@ table {
     top:170px;
     left:120px;
     padding:10px;
+    display: none;
 }
 
 .add_new_item_button {
@@ -336,3 +337,17 @@ table {
 }
 
 /* food items div */
+/* customer orders div */
+.customer_orders_div {
+    height:auto;
+    /* width:1030px; */
+    position: absolute;
+    top:170px;
+    left:40px;
+    padding:10px;
+    overflow: scroll;
+}
+.button_decline_order {
+    
+}
+/* customer orders div */
