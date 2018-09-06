@@ -347,7 +347,37 @@ table {
     padding:10px;
     overflow: scroll;
 }
+.button_accept_order {
+    
+        float:right;
+        background-color:#4caf50;
+        border:0;
+        width: 100px;
+        height: 40px;
+        color: #fff;
+        border-radius: 3px;
+    
+}
 .button_decline_order {
     
+    float:right;
+    background-color:red;
+    border:0;
+    width: 100px;
+    height: 40px;
+    color: #fff;
+    border-radius: 3px;
+
+}
+.button_complete_order {
+    
+    float:right;
+    background-color:rgb(255, 136, 0);
+    border:0;
+    width: 100px;
+    height: 40px;
+    color: #fff;
+    border-radius: 3px;
+
 }
 /* customer orders div */
