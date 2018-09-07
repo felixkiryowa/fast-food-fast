@@ -1,3 +1,16 @@
+window.onscroll = function() {myFunction()};
+ var header = document.getElementById("site_navbar");
+var sticky = header.offsetTop;
+ function myFunction() {
+  if (window.pageYOffset > sticky) {  
+    header.classList.add("sticky");
+    document.getElementById("site_navbar").style.backgroundColor = "black";
+  } else {
+    header.classList.remove("sticky");
+    document.getElementById("site_navbar").style.backgroundColor = "";
+  }
+}
+
 // make order function
 function MakeOrder(){
     var make_order = document.getElementById("make_order");
