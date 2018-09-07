@@ -1,3 +1,4 @@
+//handle page scrolling down
 window.onscroll = function() {myFunction()};
  var header = document.getElementById("site_navbar");
 var sticky = header.offsetTop;
