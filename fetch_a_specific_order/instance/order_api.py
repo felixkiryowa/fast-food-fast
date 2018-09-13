@@ -57,6 +57,34 @@ class ManageOrders(MethodView):
                 raise ValueError('The route parameter can not be a number less than zero')
         else:
             raise TypeError('The route parameter cannot be a String')
+    
+    def put(self, order_id):
+        """function to update a specific  order"""
+        # update a specific order
+        if isinstance(order_id, int):
+            if not order_id < 0:
+                if not isinstance(order_id, bool):
+                    for order in self.orders:
+                        if order.__dict__["order_id"] == order_id:
+                            order_json = request.get_json()
+                            order.__dict__['order_status'] = order_json['order_status']
+                    return jsonify({'orders':[order.__dict__ for order in self.orders]})
+
+                else:
+                    raise TypeError(
+                        'The route parameter to update a specific\
+                         order status cannot be a boolean'
+                    )
+            else:
+                raise ValueError(
+                    'The route parameter to update a specific\
+                    order status cannot be an interger less than a zero'
+                )
+        else:
+            raise TypeError(
+                'The route parameter to update a specific \
+                order status cannot be a String'
+            )
   
   
     
