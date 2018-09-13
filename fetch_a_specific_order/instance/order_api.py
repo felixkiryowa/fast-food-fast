@@ -25,6 +25,16 @@ class ManageOrders(MethodView):
 
     orders = [order1, order2, order3]
 
+    def post(self):
+        """funtion to place a new order"""
+        # create a new user
+        order = Orders(
+            len(self.orders) + 1, request.json['order_items'],
+            None, request.json['user_id']
+        )
+        self.orders.append(order)
+        return jsonify(order.__dict__)
+
     def get(self, order_id):
         """function to get a single order or to get all the orders"""
         if order_id is None:
@@ -47,7 +57,8 @@ class ManageOrders(MethodView):
                 raise ValueError('The route parameter can not be a number less than zero')
         else:
             raise TypeError('The route parameter cannot be a String')
-
+  
+  
     
        
 

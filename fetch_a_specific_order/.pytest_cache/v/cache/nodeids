@@ -1,0 +1,6 @@
+[
+  "test_views.py::test_get_all_orders", 
+  "test_views.py::test_if_parameter_passed_to_function_is_a_string", 
+  "test_views.py::test_if_parameter_passed_is_a_number_less_than_a_zero", 
+  "test_views.py::test_if_parameter_passed_is_a_boolean"
+]
