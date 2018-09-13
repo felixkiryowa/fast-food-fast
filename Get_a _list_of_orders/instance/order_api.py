@@ -25,9 +25,11 @@ class ManageOrders(MethodView):
 
     orders = [order1, order2, order3]
 
-    def get(self):
+    def get(self, order_id):
         """function to get a single order or to get all the orders"""
-        return jsonify({'all orders':[order.__dict__ for order in self.orders]})
+        if order_id is None:
+            return jsonify({'all orders':[order.__dict__ for order in self.orders]})
+    
        
 
    
