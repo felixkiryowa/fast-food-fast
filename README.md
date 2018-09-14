@@ -1,1 +1,1 @@
-# fast-food-fast
+[![Build Status](https://travis-ci.org/felixkiryowa/fast-food-fast.svg?branch=develop)](https://travis-ci.org/felixkiryowa/fast-food-fast)
