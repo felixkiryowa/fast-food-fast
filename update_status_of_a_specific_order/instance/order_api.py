@@ -41,28 +41,33 @@ class ManageOrders(MethodView):
             # return a list of orders
             return jsonify({'all orders':[order.__dict__ for order in self.orders]})
         if isinstance(order_id, int):
-            if not order_id < 0:
-                if not isinstance(order_id, bool):
+            if not isinstance(order_id, bool):
+                if not order_id < 0:
                     specific_order = [
                         order.__dict__ for order in self.orders
                         if order.__dict__["order_id"] == order_id
                     ]
                     if not specific_order:
                         return jsonify({'Message':'No Order Found with Specified Route Parameter'})
-                        # raise ValueError('No Order Found with Specified Route Parameter')
                     return jsonify({'order':specific_order[0]})
                 else:
-                    raise TypeError('The route parameter cannot be a boolean')
+                    raise ValueError('The route parameter can not be a number less than zero')
             else:
-                raise ValueError('The route parameter can not be a number less than zero')
+                raise TypeError('The route parameter cannot be a boolean')
         else:
             raise TypeError('The route parameter cannot be a String')
     def put(self, order_id):
         """function to update a specific  order"""
         # update a specific order
         if isinstance(order_id, int):
-            if not order_id < 0:
-                if not isinstance(order_id, bool):
+            if not isinstance(order_id, bool):
+                if not order_id < 0:
+                    get_spefic_order = [
+                        order.__dict__ for order in self.orders
+                        if order.__dict__["order_id"] == order_id
+                    ]
+                    if not get_spefic_order:
+                        return jsonify({'Message':'No Order Found with Specified Route Parameter'})
                     for order in self.orders:
                         if order.__dict__["order_id"] == order_id:
                             order_json = request.get_json()
@@ -70,14 +75,14 @@ class ManageOrders(MethodView):
                     return jsonify({'orders':[order.__dict__ for order in self.orders]})
 
                 else:
-                    raise TypeError(
+                    raise ValueError(
                         'The route parameter to update a specific\
-                         order status cannot be a boolean'
+                        order status cannot be an interger less than a zero'
                     )
             else:
-                raise ValueError(
+                raise TypeError(
                     'The route parameter to update a specific\
-                    order status cannot be an interger less than a zero'
+                    order status cannot be a boolean'
                 )
         else:
             raise TypeError(
