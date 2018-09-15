@@ -4,10 +4,10 @@ This module contains test for the API end points
 import pytest
 from flask import json
 from instance.order_api import ManageOrders
-from run import APP
+from run import app
 
 
-APP = APP
+APP = app
 CLIENT = APP.test_client
 ORDER = ManageOrders()
 
