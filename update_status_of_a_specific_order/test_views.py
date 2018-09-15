@@ -6,6 +6,7 @@ from flask import json
 from instance.order_api import ManageOrders
 from run import APP
 
+
 APP = APP
 CLIENT = APP.test_client
 ORDER = ManageOrders()
