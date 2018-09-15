@@ -2,4 +2,4 @@ import flask
 
 
 
-app = flask.Flask(__name__)
+APP = flask.Flask(__name__)
