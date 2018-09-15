@@ -2,7 +2,9 @@
 This module handles view routes
 
 """
-from instance.order_api import ManageOrders
+# from instance.order_api import ManageOrders
+
+from .order_api import ManageOrders
 
 class GetApiUrls(object):
 

@@ -5,7 +5,7 @@ This module defines api views
 from flask import jsonify
 from flask import request
 from flask.views import MethodView
-from instance.orders import Orders
+from .orders import Orders
 
 
 class ManageOrders(MethodView):
