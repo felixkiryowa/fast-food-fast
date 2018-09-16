@@ -2,14 +2,14 @@
 This Module runs flask application
 """
 # from instance import APP
-from update_status_of_a_specific_order.instance import APP
+from api.instance import APP
 
 
 # from instance.views import GetApiUrls
 
 # from update_status_of_a_specific_order.instance.views import GetApiUrls
 
-from update_status_of_a_specific_order.instance.views import GetApiUrls
+from api.instance.views import GetApiUrls
 
 
 APP.env = 'development'
