@@ -14,7 +14,7 @@ def test_get_all_orders():
     """
     function to test get all orders API end point
     """
-    result = CLIENT().get('/api/v1/order/')
+    result = CLIENT().get('/api/v1/orders')
     assert result.status_code == 200
 
 def test_if_parameter_passed_to_function_is_a_string():
@@ -43,7 +43,7 @@ def test_if_data_posted_is_in_form_of_json():
     function to test if data posted to the place order API is in form of Json
     """
     result = CLIENT().post(
-        '/api/v1/order/add', content_type='application/json',
+        '/api/v1/orders', content_type='application/json',
         data=json.dumps(
             {
                 "order_items": [
@@ -66,7 +66,7 @@ def test_update_specific_order():
     in form of a JSON format
     """
     result = CLIENT().put(
-        '/api/v1/order/2', content_type='application/json',
+        '/api/v1/orders/2', content_type='application/json',
         data=json.dumps(
             {
                 "order_status":"Accepted"

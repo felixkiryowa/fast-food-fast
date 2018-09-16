@@ -4,6 +4,7 @@ This module defines api views
 """
 from flask import jsonify
 from flask import request
+from flask import Response
 from flask.views import MethodView
 from .orders import Orders
 
@@ -27,13 +28,26 @@ class ManageOrders(MethodView):
 
     def post(self):
         """funtion to place a new order"""
-        # create a new user
-        order = Orders(
-            len(self.orders) + 1, request.json['order_items'],
-            None, request.json['user_id']
-        )
-        self.orders.append(order)
-        return jsonify(order.__dict__)
+        posted_data = request.get_json()
+        if('order_items' in posted_data and 'user_id' in posted_data):
+            order = Orders(
+                len(self.orders) + 1, request.json['order_items'],
+                None, request.json['user_id']
+            )
+            self.orders.append(order)
+            response = Response("", 201, mimetype="application/json")
+            response.headers['Location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
+            return jsonify(order.__dict__)
+        else:
+
+            bad_object = {
+            "error": "Invalid book object",
+            "help_string":
+                "Request format should be {'order_items': 'Tha cat in the hat',"
+                "'price': '7.99','isbn': 12319881212 }"
+            }
+            response = Response(json.dumps(bad_object), status=400, mimetype="appliation/json")
+            return response
 
     def get(self, order_id):
         """function to get a single order or to get all the orders"""
