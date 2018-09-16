@@ -1,1 +1,1 @@
-web: gunicorn run:update_status_of_a_specific_order.instance
+web: gunicorn run:APP
