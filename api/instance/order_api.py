@@ -23,7 +23,6 @@ class ManageOrders(MethodView):
         3, [{"item_id":1, "item_name":"fried fish", "price":30000, "quantity":3}],
         "none", 12
     )
-
     orders = [order1, order2, order3]
 
     def post(self):
@@ -48,25 +47,13 @@ class ManageOrders(MethodView):
             }
             response = Response(json.dumps(bad_object), status=400, mimetype="appliation/json")
             return response
-
     def get(self, order_id):
         """function to get a single order or to get all the orders"""
         if order_id is None:
             # return a list of orders
             return jsonify({'all orders':[order.__dict__ for order in self.orders]})
-        if isinstance(order_id, int):
-            if not isinstance(order_id, bool):
-                if not order_id < 0:  
-                    for order in self.orders:
-                        if order.__dict__['order_id'] == order_id:
-                            return jsonify({'order':order.__dict__}) 
-                    return jsonify({'Message':'No Order Found with Specified Route Parameter'})         
-                else:
-                    raise ValueError('The route parameter can not be a number less than zero')
-            else:
-                raise TypeError('The route parameter cannot be a boolean')
         else:
-            raise TypeError('The route parameter cannot be a String')
+            return manage_order.validate_get_specific_order(order_id)
     def put(self, order_id):
         """function to update a specific  order"""
         # update a specific order
@@ -100,4 +87,20 @@ class ManageOrders(MethodView):
                 'The route parameter to update a specific \
                 order status cannot be a String'
             )
-    
+    # @staticmethod
+    def validate_get_specific_order(self, id):
+        if isinstance(id, int):
+            if not isinstance(id, bool):
+                if not id < 0:  
+                    for order in self.orders:
+                        if order.__dict__['order_id'] == id:
+                            return jsonify({'order':order.__dict__}) 
+                    return jsonify({'Message':'No Order Found with Specified Route Parameter'})         
+                else:
+                    raise ValueError('The route parameter can not be a number less than zero')
+            else:
+                raise TypeError('The route parameter cannot be a boolean')
+        else:
+            raise TypeError('The route parameter cannot be a String')
+
+manage_order = ManageOrders()
