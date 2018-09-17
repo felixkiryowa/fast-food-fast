@@ -56,16 +56,11 @@ class ManageOrders(MethodView):
             return jsonify({'all orders':[order.__dict__ for order in self.orders]})
         if isinstance(order_id, int):
             if not isinstance(order_id, bool):
-                if not order_id < 0:
-                    try:
-                        specific_order = [
-                        order.__dict__ for order in self.orders
-                        if order.__dict__["order_id"] == order_id
-                        ]
-                        return jsonify({'order':specific_order[0]})
-                       
-                    except IndexError:
-                        return jsonify({'Message':'No Order Found with Specified Route Parameter'})   
+                if not order_id < 0:  
+                    for order in self.orders:
+                        if order.__dict__['order_id'] == order_id:
+                            return jsonify({'order':order.__dict__}) 
+                        return jsonify({'Message':'No Order Found with Specified Route Parameter'})         
                 else:
                     raise ValueError('The route parameter can not be a number less than zero')
             else:
