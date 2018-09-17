@@ -58,36 +58,12 @@ class ManageOrders(MethodView):
         """function to update a specific  order"""
         # update a specific order
         if isinstance(order_id, int):
-            if not isinstance(order_id, bool):
-                if not order_id < 0:
-                    get_spefic_order = [
-                        order.__dict__ for order in self.orders
-                        if order.__dict__["order_id"] == order_id
-                    ]
-                    if not get_spefic_order:
-                        return jsonify({'Message':'No Order Found with Specified Route Parameter'})
-                    for order in self.orders:
-                        if order.__dict__["order_id"] == order_id:
-                            order_json = request.get_json()
-                            order.__dict__['order_status'] = order_json['order_status']
-                    return jsonify({'orders':[order.__dict__ for order in self.orders]})
-
-                else:
-                    raise ValueError(
-                        'The route parameter to update a specific\
-                        order status cannot be an interger less than a zero'
-                    )
-            else:
-                raise TypeError(
-                    'The route parameter to update a specific\
-                    order status cannot be a boolean'
-                )
+            return manage_order.refactor_put_specific_order(order_id)
         else:
             raise TypeError(
                 'The route parameter to update a specific \
                 order status cannot be a String'
             )
-    # @staticmethod
     def validate_get_specific_order(self, id):
         if isinstance(id, int):
             if not isinstance(id, bool):
@@ -102,5 +78,30 @@ class ManageOrders(MethodView):
                 raise TypeError('The route parameter cannot be a boolean')
         else:
             raise TypeError('The route parameter cannot be a String')
+    
+    def refactor_put_specific_order(self , id):
+        if not isinstance(id, bool):
+            if not id < 0:
+                get_spefic_order = [
+                    order.__dict__ for order in self.orders
+                    if order.__dict__["order_id"] == id
+                ]
+                if not get_spefic_order:
+                    return jsonify({'Message':'No Order Found with Specified Route Parameter'})
+                for order in self.orders:
+                    if order.__dict__["order_id"] == id:
+                        order_json = request.get_json()
+                        order.__dict__['order_status'] = order_json['order_status']
+                return jsonify({'orders':[order.__dict__ for order in self.orders]})
+            else:
+                raise ValueError(
+                    'The route parameter to update a specific\
+                    order status cannot be an interger less than a zero'
+                )
+        else:
+            raise TypeError(
+                'The route parameter to update a specific\
+                order status cannot be a boolean'
+            )
 
 manage_order = ManageOrders()
