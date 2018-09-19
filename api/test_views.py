@@ -58,7 +58,7 @@ def test_if_data_posted_is_in_form_of_json():
             }
         )
     )
-    assert result.status_code == 200
+    assert result.status_code == 201
 
 #Tests for updating the order status
 def test_update_specific_order():
