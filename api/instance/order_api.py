@@ -2,6 +2,7 @@
 This module defines api views
 
 """
+from flask import json
 from flask import jsonify
 from flask import request
 from flask import Response
@@ -34,18 +35,17 @@ class ManageOrders(MethodView):
                 None, request.json['user_id']
             )
             self.orders.append(order)
-            response = Response("", 201, mimetype="application/json")
-            response.headers['Location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
-            return jsonify(order.__dict__)
+            response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
+            response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
+            return response
+            # jsonify(order.__dict__)
         else:
-
-            bad_object = {
-            "error": "Invalid book object",
-            "help_string":
-                "Request format should be {'order_items': 'Tha cat in the hat',"
-                "'price': '7.99','isbn': 12319881212 }"
+            order_object = "{'order_items':[{'item_id': 7,item_name': 'pop corns','price':30000,'quantity': 6}],'user_id': 23}"
+            bad_order_object = {
+            "error": "Bad Order Object",
+            "help of the correct order object format":order_object
             }
-            response = Response(json.dumps(bad_object), status=400, mimetype="appliation/json")
+            response = Response(json.dumps(bad_order_object), status=400, mimetype="appliation/json")
             return response
     def get(self, order_id):
         """function to get a single order or to get all the orders"""
@@ -65,13 +65,18 @@ class ManageOrders(MethodView):
                 order status cannot be a String'
             )
     def validate_get_specific_order(self, id):
+        """
+        function to validate get order id
+        """
+        message = {'Message':'No Order Found with Specified Route Parameter Id'}
+        response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if isinstance(id, int):
             if not isinstance(id, bool):
                 if not id < 0:  
                     for order in self.orders:
                         if order.__dict__['order_id'] == id:
                             return jsonify({'order':order.__dict__}) 
-                    return jsonify({'Message':'No Order Found with Specified Route Parameter'})         
+                    return response        
                 else:
                     raise ValueError('The route parameter can not be a number less than zero')
             else:
@@ -80,6 +85,9 @@ class ManageOrders(MethodView):
             raise TypeError('The route parameter cannot be a String')
     
     def refactor_put_specific_order(self , id):
+        """
+        function to validate update order Id
+        """
         if not isinstance(id, bool):
             if not id < 0:
                 get_spefic_order = [
@@ -87,7 +95,7 @@ class ManageOrders(MethodView):
                     if order.__dict__["order_id"] == id
                 ]
                 if not get_spefic_order:
-                    return jsonify({'Message':'No Order Found with Specified Route Parameter'})
+                    return jsonify()
                 for order in self.orders:
                     if order.__dict__["order_id"] == id:
                         order_json = request.get_json()
