@@ -14,17 +14,14 @@ class ManageOrders(MethodView):
     """Class to define all the api end points"""
     order1 = Orders(
         1, [{"item_id":1, "item_name":"pizza", "price":40000, "quantity":1}],
-        "none", 23
+        None, 23
     )
     order2 = Orders(
         2, [{"item_id":1, "item_name":"fresh juice", "price":20000, "quantity":2}],
-        "none", 45
+        None, 45
     )
-    order3 = Orders(
-        3, [{"item_id":1, "item_name":"fried fish", "price":30000, "quantity":3}],
-        "none", 12
-    )
-    orders = [order1, order2, order3]
+   
+    orders = [order1, order2]
 
     def post(self):
         """funtion to place a new order"""
@@ -38,68 +35,68 @@ class ManageOrders(MethodView):
             response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
             response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
             return response
-            # jsonify(order.__dict__)
-        else:
-            order_object = "{'order_items':[{'item_id': 7,item_name': 'pop corns','price':30000,'quantity': 6}],'user_id': 23}"
-            bad_order_object = {
+        order_object = "{'order_items':[{'item_id': 7,item_name': 'pop corns',\
+        'price':30000,'quantity': 6}],'user_id': 23}"
+        bad_order_object = {
             "error": "Bad Order Object",
             "help of the correct order object format":order_object
-            }
-            response = Response(json.dumps(bad_order_object), status=400, mimetype="appliation/json")
-            return response
+        }
+        response = Response(
+            json.dumps(bad_order_object),
+            status=400, mimetype="appliation/json"
+            )
+        return response
     def get(self, order_id):
         """function to get a single order or to get all the orders"""
         if order_id is None:
             # return a list of orders
             return jsonify({'all orders':[order.__dict__ for order in self.orders]})
-        else:
-            return manage_order.validate_get_specific_order(order_id)
+        return MANAGE_ORDER.validate_get_specific_order(order_id)
     def put(self, order_id):
         """function to update a specific  order"""
         # update a specific order
         if isinstance(order_id, int):
-            return manage_order.refactor_put_specific_order(order_id)
+            return MANAGE_ORDER.refactor_put_specific_order(order_id)
         else:
             raise TypeError(
                 'The route parameter to update a specific \
                 order status cannot be a String'
             )
-    def validate_get_specific_order(self, id):
+    def validate_get_specific_order(self, order_id):
         """
         function to validate get order id
         """
         message = {'Message':'No Order Found with Specified Route Parameter Id'}
         response = Response(json.dumps(message), status=404, mimetype="appliation/json")
-        if isinstance(id, int):
-            if not isinstance(id, bool):
-                if not id < 0:  
+        if isinstance(order_id, int):
+            if not isinstance(order_id, bool):
+                if not order_id < 0:
                     for order in self.orders:
-                        if order.__dict__['order_id'] == id:
-                            return jsonify({'order':order.__dict__}) 
-                    return response        
+                        if order.__dict__['order_id'] == order_id:
+                            return jsonify({'order':order.__dict__})
+                    return response
                 else:
                     raise ValueError('The route parameter can not be a number less than zero')
             else:
                 raise TypeError('The route parameter cannot be a boolean')
         else:
             raise TypeError('The route parameter cannot be a String')
-    
-    def refactor_put_specific_order(self , id):
-        message = {'Message':'No Order Found with Specified Route Parameter Id'}
-        response = Response(json.dumps(message), status=404, mimetype="appliation/json")
+    def refactor_put_specific_order(self, order_id):
         """
         function to validate update order Id
         """
-        if not isinstance(id, bool):
-            if not id < 0:
+        message = {'Message':'No Order Found with Specified Route Parameter Id'}
+        response = Response(json.dumps(message), status=404, mimetype="appliation/json")
+        if not isinstance(order_id, bool):
+            if not order_id < 0:
                 get_spefic_order = [
                     order.__dict__ for order in self.orders
-                    if order.__dict__["order_id"] == id
+                    if order.__dict__["order_id"] == order_id
                 ]
                 if not get_spefic_order:
                     return response
                 for order in self.orders:
-                    if order.__dict__["order_id"] == id:
+                    if order.__dict__["order_id"] == order_id:
                         order_json = request.get_json()
                         order.__dict__['order_status'] = order_json['order_status']
                 return jsonify({'orders':[order.__dict__ for order in self.orders]})
@@ -113,5 +110,4 @@ class ManageOrders(MethodView):
                 'The route parameter to update a specific\
                 order status cannot be a boolean'
             )
-
-manage_order = ManageOrders()
+MANAGE_ORDER = ManageOrders()
