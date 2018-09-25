@@ -1,5 +1,5 @@
 UI
-.vscode
-.pytest_cache
+.vscode/settings.json
+.pytest_cache/v/cache/nodeids
 
 
