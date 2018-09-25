@@ -89,7 +89,7 @@ class ManageOrders(MethodView):
         function to validate update order Id
         """
         message = {'Message':'No Order Found with Specified Id'}
-        response = Response(json.dumps(message), status=404, mimetype="appliation/json")
+        response = Response(json.dumps(message), status=404, mimetype="application/json")
         if not isinstance(order_id, bool):
             if not order_id < 0:
                 get_spefic_order = [
