@@ -62,9 +62,7 @@ class ManageOrders(MethodView):
 
 
     def validate_get_specific_order(self, order_id):
-        """
-        function to validate get order id
-        """
+        """function to validate get order id"""
         message = {'Message':'No Order Found with Specified Order Id'}
         response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if isinstance(order_id, int):
