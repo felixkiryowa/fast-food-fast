@@ -52,6 +52,7 @@ section.sec1 {
     background-image: url("../images/background.jpg");
     background-size: cover;
 }
+
 section.sec2 {
     width: 100%;
     height: 100vh;
@@ -60,14 +61,25 @@ section.sec2 {
 }
 
 .centered {
+  
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.6); /* Black background with 0.5 opacity */
+    color: #f1f1f1;
+    width: 100%;
+    height: 100vh;
+    
+}
+.show_text_on_top_of_image {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%;left: 50%;
     transform: translate(-50%, -50%);
+}
+.slogan {
+    font-weight: bold;
 }
 h1 {
     font-size: 48px;
-    color: #000;
+    color: #fff;
 }
 h4 {
     color: #ffffff;
@@ -78,8 +90,8 @@ h2{
 
 .my_container {
     padding-top: 30px;
-    background-color: #fff;
-    border-style: double;
+    /* background-color: #fff; */
+    /* border-style: double; */
     width: 800px;
     height: 100px;;
 }
@@ -491,13 +503,11 @@ div.desc {
     color:white;
   }
   .my_history {
-    left: 150px;
     position: absolute;
-    left: 200px;
+    left: 230px;
     height: 540px;
     padding-left: 14px;
-    width: 880px;
-    background-image: url("../images/chicken-chips.jpg");
+    width: 900px;
     /* background: rgba(0, 0, 0, 0.5); */
     display: none;
     overflow:scroll; 
@@ -533,16 +543,12 @@ div.desc {
   /* order history */
   #invoice-POS{
     box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
-    padding:2mm;
+    padding-left:60px;
     margin: 0 auto;
-    width: 400px;
+    width: 700px;
     background-color:#fff;
     
-    
-  ::selection {background: #f31544; color: #FFF;}
-  ::moz-selection {background: #f31544; color: #FFF;}
- 
-  h2{font-size: .9em;}
+
   h3{
     font-size: 1.2em;
     font-weight: 300;
@@ -559,7 +565,9 @@ div.desc {
   }
   
   #top{min-height: 100px;}
-  #mid{min-height: 80px;} 
+  #mid{
+      min-height: 80px;
+    } 
   #bot{ min-height: 50px;}
 
   .info{
@@ -570,9 +578,22 @@ div.desc {
     float: right;
   }
   .title p{text-align: right;} 
-  table{
-    width: 100%;
+
+  table {
     border-collapse: collapse;
+  }
+  table tr:nth-child(odd) td {
+     background-color: #e7edf0;
+  }
+  table th {
+    text-align: left;
+    background-color: #3a6070;
+    color: #fff;
+    padding: 4px 30px 4px 8px;
+  }
+  table td {
+    border: 1px solid #e3e3e3;
+    padding: 5px 15px;
   }
   .tabletitle{
     font-size: .5em;
