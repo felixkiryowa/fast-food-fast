@@ -12,16 +12,8 @@ from .orders import Orders
 
 class ManageOrders(MethodView):
     """Class to define all the api end points"""
-    order1 = Orders(
-        1, [{"item_id":1, "item_name":"pizza", "price":40000, "quantity":1}],
-        None, 23
-    )
-    order2 = Orders(
-        2, [{"item_id":1, "item_name":"fresh juice", "price":20000, "quantity":2}],
-        None, 45
-    )
-   
-    orders = [order1, order2]
+ 
+    orders = []
 
     def post(self):
         """funtion to place a new order"""
@@ -46,12 +38,17 @@ class ManageOrders(MethodView):
             status=400, mimetype="appliation/json"
             )
         return response
+
+
     def get(self, order_id):
         """function to get a single order or to get all the orders"""
         if order_id is None:
             # return a list of orders
             return jsonify({'all orders':[order.__dict__ for order in self.orders]})
         return MANAGE_ORDER.validate_get_specific_order(order_id)
+
+
+
     def put(self, order_id):
         """function to update a specific  order"""
         # update a specific order
@@ -59,9 +56,11 @@ class ManageOrders(MethodView):
             return MANAGE_ORDER.refactor_put_specific_order(order_id)
         else:
             raise TypeError(
-                'The route parameter to update a specific \
-                order status cannot be a String'
+                'The order id cannot be a String'
             )
+
+
+
     def validate_get_specific_order(self, order_id):
         """
         function to validate get order id
@@ -76,16 +75,20 @@ class ManageOrders(MethodView):
                             return jsonify({'order':order.__dict__})
                     return response
                 else:
-                    raise ValueError('The route parameter can not be a number less than zero')
+                    raise ValueError('The order id can not be a number less than zero')
             else:
-                raise TypeError('The route parameter cannot be a boolean')
+                raise TypeError('The order id cannot be a boolean')
         else:
-            raise TypeError('The route parameter cannot be a String')
+            raise TypeError('The order id cannot be a String')
+
+
+
+
     def refactor_put_specific_order(self, order_id):
         """
         function to validate update order Id
         """
-        message = {'Message':'No Order Found with Specified Route Parameter Id'}
+        message = {'Message':'No Order Found with Specified Id'}
         response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if not isinstance(order_id, bool):
             if not order_id < 0:
@@ -102,12 +105,10 @@ class ManageOrders(MethodView):
                 return jsonify({'orders':[order.__dict__ for order in self.orders]})
             else:
                 raise ValueError(
-                    'The route parameter to update a specific\
-                    order status cannot be an interger less than a zero'
+                    'The order id cannot be an interger less than a zero'
                 )
         else:
             raise TypeError(
-                'The route parameter to update a specific\
-                order status cannot be a boolean'
+                'The order id cannot be a boolean'
             )
 MANAGE_ORDER = ManageOrders()

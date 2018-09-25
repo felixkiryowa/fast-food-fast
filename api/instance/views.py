@@ -13,10 +13,14 @@ class GetApiUrls(object):
     """
     def __init__(self):
         """class constructor"""
+
+
     @staticmethod
     def get_all_urls(APP):
         """function defining all the api routes """
+
         order_view = ManageOrders.as_view('order_api')
+
         APP.add_url_rule(
             '/api/v1/orders',
             defaults={
@@ -24,7 +28,8 @@ class GetApiUrls(object):
             }, view_func=order_view, methods=['GET',]
         )
         APP.add_url_rule('/api/v1/orders', view_func=order_view, methods=['POST',])
+
         APP.add_url_rule(
             '/api/v1/orders/<int:order_id>',
-            view_func=order_view, methods=['GET', 'PUT', 'DELETE']
+            view_func=order_view, methods=['GET', 'PUT']
         )
