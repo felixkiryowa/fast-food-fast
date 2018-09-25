@@ -65,7 +65,7 @@ class ManageOrders(MethodView):
         """
         function to validate get order id
         """
-        message = {'Message':'No Order Found with Specified Route Parameter Id'}
+        message = {'Message':'No Order Found with Specified Order Id'}
         response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if isinstance(order_id, int):
             if not isinstance(order_id, bool):
@@ -88,7 +88,7 @@ class ManageOrders(MethodView):
         """
         function to validate update order Id
         """
-        message = {'Message':'No Order Found with Specified Id'}
+        message = {'Message':'No Order Found with Specified Order Id'}
         response = Response(json.dumps(message), status=404, mimetype="application/json")
         if not isinstance(order_id, bool):
             if not order_id < 0:
