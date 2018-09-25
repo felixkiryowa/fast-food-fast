@@ -18,12 +18,20 @@ Fast-Food-Fast API is a project thats to be consumed by fast-food-fast website u
 How does one go about using it live or within their own project?
 
 End point to get all orders
-URL
+
+URL:
+
 https://fsfapi.herokuapp.com/api/v1/orders
-METHOD
+
+METHOD:
+
 GET
+
 SUCCESS RESPONSE:
+
 Code: 200 OK
+
+
 Content:
 {
     "all orders": [
@@ -55,17 +63,26 @@ Content:
         }
     ]
 }
+
 Error Response:
+
 Code: 404 NOT FOUND
 
 
 End point to get a specific order
-URL
+
+URL:
+
 https://fsfapi.herokuapp.com/api/v1/orders/1
-METHOD
+
+METHOD:
+
 GET
+
 SUCCESS RESPONSE:
+
 Code: 200 OK
+
 Content:
 {
     "order": {
@@ -83,7 +100,9 @@ Content:
     }
 }
 Error Response:
+
 Code: 404 NOT FOUND
+
 Content:
 {
     "Message": "No Order Found with Specified Order Id"
@@ -91,12 +110,19 @@ Content:
 
 
 End point to update a specific order status
-URL
+
+URL:
+
 https://fsfapi.herokuapp.com/api/v1/orders/1
-METHOD
+
+METHOD:
+
 PUT
+
 SUCCESS RESPONSE:
+
 Code: 200 OK
+
 Content:
 {
     "order": {
@@ -113,9 +139,13 @@ Content:
         "user_id": 23
     }
 }
+
 Error Response:
+
 Code: 404 NOT FOUND
+
 Content:
+
 {
     "Message": "No Order Found with Specified Order Id"
 }
@@ -124,11 +154,16 @@ Content:
 End point to Post  a given order by the user
 
 URL
+
 https://fsfapi.herokuapp.com/api/v1/orders/1
-METHOD
+
+METHOD:
+
 POST
 SUCCESS RESPONSE:
+
 Code: 201 CREATED
+
 Content:
 {
     "order_id": 2,
@@ -144,7 +179,8 @@ Content:
     "user_id": 23
 }
 Error Response:
+
 Code: 404 NOT FOUND
-Content:
+
 
 
