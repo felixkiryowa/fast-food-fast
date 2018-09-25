@@ -3,7 +3,7 @@ This module contains test for the API end points
 """
 import pytest
 from flask import json
-from instance.order_api import ManageOrders
+from api.controller.order_api import ManageOrders
 from run import APP
 
 APP = APP

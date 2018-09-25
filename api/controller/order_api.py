@@ -7,7 +7,7 @@ from flask import jsonify
 from flask import request
 from flask import Response
 from flask.views import MethodView
-from .orders import Orders
+from api.models.orders import Orders
 
 
 class ManageOrders(MethodView):
