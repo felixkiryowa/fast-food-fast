@@ -66,7 +66,7 @@ def test_update_specific_order():
     in form of a JSON format
     """
     result = CLIENT().put(
-        '/api/v1/orders/2', content_type='application/json',
+        '/api/v1/orders/1', content_type='application/json',
         data=json.dumps(
             {
                 "order_status":"Accepted"
