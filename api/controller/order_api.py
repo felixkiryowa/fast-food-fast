@@ -27,7 +27,7 @@ class ManageOrders(MethodView):
             response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
             response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
             return response
-        order_object = "{'order_items':[{'item_id': 7,item_name': 'pop corns',\
+        order_object = "{'order_items':[{'item_id': 7,item_name': 'Pizza',\
         'price':30000,'quantity': 6}],'user_id': 23}"
         bad_order_object = {
             "error": "Bad Order Object",
