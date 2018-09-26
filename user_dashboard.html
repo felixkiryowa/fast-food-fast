@@ -50,7 +50,7 @@
                 <div class="desc">
                   <p><b>Pizza</b></p>
                   <p><b>40,000 Shs</b></p>
-                  <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                  <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                 </div>
               </div>
               <div class="gallery">
@@ -60,7 +60,7 @@
                   <div class="desc">
                       <p><b>Burger</b></p>
                       <p><b>20,000 Shs</b></p>
-                      <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                      <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                   </div>
                 </div>
                 <div class="gallery">
@@ -70,7 +70,7 @@
                     <div class="desc">
                         <p><b>Pilawoo</b></p>
                         <p><b>20,000 Shs</b></p>
-                        <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                        <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                     </div>
                   </div>
                   <div class="gallery">
@@ -80,7 +80,7 @@
                       <div class="desc">
                           <p><b>Burger</b></p>
                           <p><b>35,000 Shs</b></p>
-                          <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                          <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                       </div>
                     </div>
                     <div class="gallery">
@@ -90,7 +90,7 @@
                         <div class="desc">
                             <p><b>Burger</b></p>
                             <p><b>20,000 Shs</b></p>
-                            <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                            <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                         </div>
                     </div>
                     <div class="gallery">
@@ -100,7 +100,7 @@
                         <div class="desc">
                             <p><b>Goat Meat</b></p>
                             <p><b>18,000 Shs</b></p>
-                            <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                            <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                         </div>
                       </div>
                       <div class="gallery">
@@ -110,7 +110,7 @@
                           <div class="desc">
                               <p><b>Coffee</b></p>
                               <p><b>15,000 Shs</b></p>
-                              <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                              <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                           </div>
                       </div>
                       <div class="gallery">
@@ -120,7 +120,7 @@
                           <div class="desc">
                               <p><b>Fresh Juice</b></p>
                               <p><b>20,000 Shs</b></p>
-                              <button class="make_order" onclick="MakeOrder()">Make Order</button>
+                              <button class="make_order" onclick="MakeOrder1()">Make Order</button>
                           </div>
                       </div>
                       <br>
@@ -138,21 +138,38 @@
                           <a href="#">&raquo;</a>
                         </div>
             </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
 
-            <div class="bg-img" id="make_order">
-                <form action="" class="container_form">
-                  <h2 align="center">Submit Order</h2>
-                  <label for="food_name"><b>Food Name</b></label>
-                  <input type="text" placeholder="Enter Food Name" name="food_name" 
-              required>
-                  <label for="Quantinty"><b>Quantity</b></label>
-                  <input type="text" placeholder="Enter Quantinty" name="quantity" 
-              required>
-                 <p>Total Amount : <b>Goes Here.....</b></p>
-                  <br>
-                  <input type="submit" class="btn" value="Order"></button>
-                </form>
-          </div>
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div>
+                      <table  width="500px">
+                        <tr>
+                          <td align="center"><img src="images/shopping-cart-black-6.png" alt="shopping cart" width="30px" height="30px"></td>
+                          <td align="center" class="shopping_cart"><span >4</span></td>
+                          <td align="center"><button class="manage_orders">Manage cart</button></td>
+                        </tr>
+                      </table>
+                      
+                  </div>
+                  
+                  <form action="" class="make_order_form">
+                        <h2 align="center">Submit Order</h2>
+                        <label for="food_name"><b>Food Name</b></label>
+                        <input type="text" placeholder="Enter Food Name" name="food_name" 
+                    required>
+                        <label for="Quantinty"><b>Quantity</b></label>
+                        <input type="text" placeholder="Enter Quantinty" name="quantity" 
+                    required>
+                      <p>Total Amount : <b>Goes Here.....</b></p>
+                        <br>
+                        <input type="submit" class="btn" value="Add Item"></button>
+                  </form>
+                </div>
+              
+            </div>
 
           <div class="my_history" id="order_history">
             <h2 style="color:black;" align="center">Francis Kiryowa Ordering History</h2>
@@ -249,5 +266,6 @@
 
             
   </body>
+  <script src="js/admin.js"></script>
   <script src="js/fast_food_fast.js" ></script>
 </html>

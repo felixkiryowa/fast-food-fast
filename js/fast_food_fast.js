@@ -13,6 +13,7 @@ var sticky = header.offsetTop;
 
 // make order function
 function MakeOrder(){
+    
     var make_order = document.getElementById("make_order");
     var content_holder = document.getElementById("content_holder");
     var order_history = document.getElementById("order_history");
@@ -151,6 +152,9 @@ document.getElementById("enter_account").addEventListener("click",function(){
 
      
 });
+
+
+
 
 
 
