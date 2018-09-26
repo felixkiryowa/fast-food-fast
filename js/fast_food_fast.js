@@ -28,7 +28,7 @@ function BackHome(){
     var content_holder = document.getElementById("content_holder");
     var order_history = document.getElementById("order_history");
     order_history.style.display ="none";
-    make_order.style.display = "none"; 
+    // make_order.style.display = "none"; 
     content_holder.style.display ="block";
      
 }
@@ -37,7 +37,7 @@ function ViewHistory(){
     var order_history = document.getElementById("order_history");
     var make_order = document.getElementById("make_order");
     var content_holder = document.getElementById("content_holder");
-    make_order.style.display = "none"; 
+    // make_order.style.display = "none"; 
     content_holder.style.display ="none";
     order_history.style.display = "block"
 }
