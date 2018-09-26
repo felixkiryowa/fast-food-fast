@@ -12,7 +12,7 @@ from api.models.orders import Orders
 
 class ManageOrders(MethodView):
     """Class to define all the api end points"""
- 
+
     orders = []
 
     def post(self):
@@ -68,12 +68,13 @@ class ManageOrders(MethodView):
         message = {'Message':'No Order Found with Specified Order Id'}
         response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if isinstance(order_id, int):
-            return MANAGE_ORDER.refactor_validate_specific_order_function(order_id)  
+            return MANAGE_ORDER.refactor_validate_specific_order_function(order_id)
         else:
             raise TypeError('The order id cannot be a String')
 
 
     def refactor_validate_specific_order_function(self, order_id):
+        """function to reduce complexty on validating order id function"""
         if not isinstance(order_id, bool):
             if not order_id < 0:
                 for order in self.orders:
@@ -84,6 +85,8 @@ class ManageOrders(MethodView):
                 raise ValueError('The order id can not be a number less than zero')
         else:
             raise TypeError('The order id cannot be a boolean')
+
+
 
     def refactor_put_specific_order(self, order_id):
         """
@@ -112,4 +115,7 @@ class ManageOrders(MethodView):
             raise TypeError(
                 'The order id cannot be a boolean'
             )
+
+
+
 MANAGE_ORDER = ManageOrders()
