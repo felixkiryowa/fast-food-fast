@@ -17,6 +17,9 @@ def test_get_all_orders():
     result = CLIENT().get('/api/v1/orders')
     assert result.status_code == 200
 
+
+
+
 def test_if_parameter_passed_to_function_is_a_string():
     """
     function to test get a specific  order API end point\
@@ -25,6 +28,8 @@ def test_if_parameter_passed_to_function_is_a_string():
     with pytest.raises(TypeError):
         ORDER.get("five")
 
+
+
 def test_if_parameter_passed_is_a_number_less_than_a_zero():
     """
     function to test get a specific  order API end point\
@@ -32,12 +37,18 @@ def test_if_parameter_passed_is_a_number_less_than_a_zero():
     """
     with pytest.raises(ValueError):
         ORDER.get(-1)
+
+
+
 def test_if_parameter_passed_is_a_boolean():
     """function to test get a specific  order API end point\
     such that a boolean is not passed as a route parameter
     """
     with pytest.raises(TypeError):
         ORDER.get(True)
+
+
+
 def test_if_data_posted_is_in_form_of_json():
     """
     function to test if data posted to the place order API is in form of Json
@@ -60,6 +71,8 @@ def test_if_data_posted_is_in_form_of_json():
     )
     assert result.status_code == 201
 
+
+
 #Tests for updating the order status
 def test_update_specific_order():
     """function to test whether data passed to the update end point is \
@@ -75,6 +88,8 @@ def test_update_specific_order():
     )
     assert result.status_code == 200
 
+
+
 def test_if_parameter_passed_to_the_put_function_is_a_string():
     """
     function to test get a specific  order API end point\
@@ -83,6 +98,8 @@ def test_if_parameter_passed_to_the_put_function_is_a_string():
     with pytest.raises(TypeError):
         ORDER.put("ten")
 
+
+
 def test_if_parameter_passed_to_the_put_function_is_a_number_less_than_a_zero():
     """
     function to test get a specific  order API end point\
@@ -90,6 +107,9 @@ def test_if_parameter_passed_to_the_put_function_is_a_number_less_than_a_zero():
     """
     with pytest.raises(ValueError):
         ORDER.put(-1)
+
+
+
 def test_if_parameter_passed_to_the_put_function_is_a_boolean():
     """function to test get a specific  order API end point\
     such that a boolean is not passed as a route parameter
