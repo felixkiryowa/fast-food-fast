@@ -19,6 +19,17 @@ class ManageOrders(MethodView):
         """funtion to place a new order"""
         posted_data = request.get_json()
         if('order_items' in posted_data and 'user_id' in posted_data):
+            for order in self.orders:
+                if order.__dict__['user_id'] == posted_data['user_id'] and order.__dict__['order_status'] is  None:
+                    list_index = 0
+                    for item in order.__dict__['order_items']:
+                        if item['item_id'] == posted_data['order_items'][list_index]['item_id']:
+                            item['quantity']  +=posted_data['order_items'][list_index]['quantity']
+                            item['price'] += posted_data['order_items'][list_index]['price']
+                            response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
+                            response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
+                            return response
+                        list_index += 1
             order = Orders(
                 len(self.orders) + 1, request.json['order_items'],
                 None, request.json['user_id']
@@ -44,6 +55,8 @@ class ManageOrders(MethodView):
         """function to get a single order or to get all the orders"""
         if order_id is None:
             # return a list of orders
+            if not self.orders:
+                return jsonify({"Message":"No Order Entries"})
             return jsonify({'all orders':[order.__dict__ for order in self.orders]})
         return MANAGE_ORDER.validate_get_specific_order(order_id)
 
@@ -65,8 +78,6 @@ class ManageOrders(MethodView):
         """
         function to validate get order id
         """
-        message = {'Message':'No Order Found with Specified Order Id'}
-        response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if isinstance(order_id, int):
             return MANAGE_ORDER.refactor_validate_specific_order_function(order_id)
         else:
@@ -75,6 +86,8 @@ class ManageOrders(MethodView):
 
     def refactor_validate_specific_order_function(self, order_id):
         """function to reduce complexty on validating order id function"""
+        message = {'Message':'No Order Found with Specified Order Id'}
+        response = Response(json.dumps(message), status=404, mimetype="appliation/json")
         if not isinstance(order_id, bool):
             if not order_id < 0:
                 for order in self.orders:
