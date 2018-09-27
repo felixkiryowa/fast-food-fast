@@ -65,12 +65,13 @@ class ManageOrders(MethodView):
     def put(self, order_id):
         """function to update a specific  order"""
         # update a specific order
-        if isinstance(order_id, int):
-            return MANAGE_ORDER.refactor_put_specific_order(order_id)
-        else:
-            raise TypeError(
+        if not isinstance(order_id, int):
+             raise TypeError(
                 'The order id cannot be a String'
             )
+        else:
+            return MANAGE_ORDER.refactor_put_specific_order(order_id)
+           
 
 
 
