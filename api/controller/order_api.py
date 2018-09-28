@@ -19,25 +19,38 @@ class ManageOrders(MethodView):
         """funtion to place a new order"""
         posted_data = request.get_json()
         if('order_items' in posted_data and 'user_id' in posted_data):
-            for order in self.orders:
-                if order.__dict__['user_id'] == posted_data['user_id'] and order.__dict__['order_status'] is  None:
-                    list_index = 0
-                    for item in order.__dict__['order_items']:
-                        if item['item_id'] == posted_data['order_items'][list_index]['item_id']:
-                            item['quantity']  +=posted_data['order_items'][list_index]['quantity']
-                            item['price'] += posted_data['order_items'][list_index]['price']
-                            response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
-                            response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
-                            return response
-                        list_index += 1
-            order = Orders(
-                len(self.orders) + 1, request.json['order_items'],
-                None, request.json['user_id']
-            )
-            self.orders.append(order)
-            response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
-            response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
-            return response
+            items_index = 0
+            raised_errors = []
+            for food_item in request.json['order_items']:
+                if not isinstance(food_item["item_id"],int) or not isinstance(food_item["quantity"],int) or not isinstance(food_item["price"],int):
+                    raised_errors.append("The item_id/quantity/price should be a non negative integer")
+                if food_item["item_name"] == "" or food_item["item_id"] == "" or food_item["quantity"] == "" or food_item["price"] == "":
+                    raised_errors.append("The item_id/quantity/price should be not be empty")
+                if isinstance(food_item["item_id"],int) and isinstance(food_item["quantity"],int) and isinstance(food_item["price"],int):
+                    if food_item["item_id"] < 1 or food_item["quantity"] < 1 or food_item["price"] < 1 or food_item["price"] < 1:
+                        raised_errors.append("The item_id/quantity/price should be not be less than 1")
+                items_index += 1 
+            if not raised_errors:
+                for order in self.orders:
+                    if order.__dict__['user_id'] == posted_data['user_id'] and order.__dict__['order_status'] is  None:
+                        list_index = 0
+                        for item in order.__dict__['order_items']:
+                            if item['item_id'] == posted_data['order_items'][list_index]['item_id']:
+                                item['quantity']  +=posted_data['order_items'][list_index]['quantity']
+                                item['price'] += posted_data['order_items'][list_index]['price']
+                                response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
+                                response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
+                                return response
+                            list_index += 1
+                order = Orders(
+                    len(self.orders) + 1, request.json['order_items'],
+                    None, request.json['user_id']
+                )
+                self.orders.append(order)
+                response = Response(json.dumps(order.__dict__), 201, mimetype="application/json")
+                response.headers['location'] = "/api/v1/orders/" + str(order.__dict__['order_id'])
+                return response
+            return jsonify({"Error Messages":raised_errors})
         order_object = "{'order_items':[{'item_id': 7,item_name': 'Pizza',\
         'price':30000,'quantity': 6}],'user_id': 23}"
         bad_order_object = {
