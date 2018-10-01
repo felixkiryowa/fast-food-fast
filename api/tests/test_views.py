@@ -3,12 +3,20 @@ This module contains test for the API end points
 """
 import pytest
 from flask import json
-from api.controller.order_api import ManageOrders
-from run import APP
+from api.controller.auth_api import AuthorizeUsers
 
-APP = APP
-CLIENT = APP.test_client
-ORDER = ManageOrders()
+from connection import APP
+
+
+def setUp(self):
+        APP.config['TESTING'] = True
+        self.CLIENT = APP.test_client
+        self.database = DatabaseConnection()
+        self.database.init_db(APP)
+        self.token = None
+
+def tearDown(self):
+        self.database.drop_test_schema()
 
 def test_get_all_orders():
     """
