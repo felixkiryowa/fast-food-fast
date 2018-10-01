@@ -57,8 +57,10 @@ class Orders(MethodView):
             return manage_orders.execute_query_get_all_orders(get_all_orders_sql)
         return manage_orders.execute_query_get_specific_order(get_single_order_sql,order_id)
 
-    
-    def put(self, order_id) :
+    @token_required   
+    def put(self, current_user, order_id) :
+        if not current_user[0][6]:
+            return jsonify({'Message':'Cannot Perform That Function!'})
         get_single_order_sql =  """
                     SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,users.name,users.address,users.phone_number
                     FROM orders

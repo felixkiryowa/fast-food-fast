@@ -52,7 +52,7 @@ class Menu(MethodView):
             results = []
             for row in available_menu:
                 results.append(dict(zip(columns, row)))
-            return jsonify({'Available Menu Items':results})
+            return jsonify({'Available Menu':results})
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
