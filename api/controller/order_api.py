@@ -33,10 +33,10 @@ class Orders(MethodView):
             sql, new_order['user_id'], new_order['item_id'], new_order['quantity']
         )
         
-
-
-    def get(self, order_id):
-        
+    @token_required
+    def get(self,current_user, order_id):
+        if not current_user[0][6]:
+            return jsonify({'Message':'Cannot Perform That Function!'})
 
         get_single_order_sql =  """
                     SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,orders.created_at,users.name,users.address,users.phone_number
@@ -57,6 +57,34 @@ class Orders(MethodView):
             return manage_orders.execute_query_get_all_orders(get_all_orders_sql)
         return manage_orders.execute_query_get_specific_order(get_single_order_sql,order_id)
 
+    
+    def put(self, order_id) :
+        get_single_order_sql =  """
+                    SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,users.name,users.address,users.phone_number
+                    FROM orders
+                    INNER JOIN menu ON orders.item_id = menu.item_id
+                    INNER JOIN users ON users.user_id = orders.user_id WHERE orders.order_id=%s
+                    ORDER BY orders.order_id;
+                """
+        conn = None
+        try:
+            params = config()
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM orders WHERE order_id=%s",(order_id, ))
+            check_order_exist = cur.rowcount
+            if check_order_exist == 0:
+                return jsonify({'Messsage':'No Order Found!!'})
+            cur.execute("UPDATE orders SET order_status=%s WHERE order_id=%s",(request.json['order_status'], order_id,))
+            conn.commit()
+            return manage_orders.execute_query_get_specific_order(get_single_order_sql, order_id)
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()    
+              
         
     def execute_query_get_all_orders(self, sql):
 
