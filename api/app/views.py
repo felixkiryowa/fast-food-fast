@@ -5,7 +5,7 @@ This module handles view routes
 # from instance.order_api import ManageOrders
 
 from api.controller.auth_api import AuthorizeUsers
-# from api.controller.menu_api import Menu
+from api.controller.menu_api import Menu
 # from api.controller.order_api import Orders
 # from api.controller.order_history_api import OrderHistory
 
@@ -23,7 +23,7 @@ class OrderApiUrls(object):
         """function defining all the api routes """
 
         auth_view = AuthorizeUsers.as_view('auth_api')
-        # menu_view = Menu.as_view('menu_api')
+        menu_view = Menu.as_view('menu_api')
         # order_view = Orders.as_view('order_api')
         # order_history_view = OrderHistory.as_view('order_history_view')
 
@@ -39,6 +39,6 @@ class OrderApiUrls(object):
         # )
         APP.add_url_rule('/api/v2/auth/login', view_func=auth_view, methods=['POST',])
         APP.add_url_rule('/api/v2/auth/signup', view_func=auth_view, methods=['POST',])
-        # APP.add_url_rule('/api/v2/menu', view_func=menu_view, methods=['POST',])
+        APP.add_url_rule('/api/v2/menu', view_func=menu_view, methods=['POST',])
         # APP.add_url_rule('/api/v2/menu', view_func=menu_view, methods=['GET',])
 
