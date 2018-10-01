@@ -38,7 +38,6 @@ marshmallow==2.15.5
 mccabe==0.6.1
 more-itertools==4.3.0
 pathlib2==2.3.2
-pick-colour-picker==1.0
 pipenv==2018.7.1
 pluggy==0.7.1
 psycopg2==2.7.5
