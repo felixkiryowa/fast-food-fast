@@ -32,7 +32,54 @@ class Orders(MethodView):
         return manage_orders.execute_add_order_query(
             sql, new_order['user_id'], new_order['item_id'], new_order['quantity']
         )
-    
+        
+
+
+    def get(self, order_id):
+        get_single_order_sql =  """
+                    SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,orders.created_at,users.name,users.address,users.phone_number
+                    FROM orders
+                    INNER JOIN menu ON orders.item_id = menu.item_id
+                    INNER JOIN users ON users.user_id = orders.user_id WHERE orders.order_id=%s
+                    ORDER BY orders.order_id;
+                """
+        
+        get_all_orders_sql =  """
+                    SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,orders.created_at,users.name,users.address,users.phone_number
+                    FROM orders
+                    INNER JOIN menu ON orders.item_id = menu.item_id
+                    INNER JOIN users ON users.user_id = orders.user_id
+                    ORDER BY orders.order_id;
+                """
+        if order_id is None:
+            return manage_orders.execute_query_get_all_orders(get_all_orders_sql)
+
+        
+    def execute_query_get_all_orders(self, sql):
+
+        conn = None
+        try:
+            params = config()
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+            cur.execute(sql)
+            returned_orders_data = cur.fetchall()
+            if not returned_orders_data:
+                return jsonify({"Message":"No Order Entries Found !!"})
+            columns = ('order_id','item_name','price', 'quantity', 'order_status','created_at', 'customer names',
+            'address','phone number')
+            results = []
+            for row in returned_orders_data:
+                results.append(dict(zip(columns, row)))
+            return jsonify({'All_orders':results})
+
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()  
+
 
     def execute_add_order_query(self, sql, user_id, item_id, quantity):
         conn = None
