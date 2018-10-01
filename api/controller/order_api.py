@@ -36,6 +36,8 @@ class Orders(MethodView):
 
 
     def get(self, order_id):
+        
+
         get_single_order_sql =  """
                     SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,orders.created_at,users.name,users.address,users.phone_number
                     FROM orders
@@ -53,6 +55,7 @@ class Orders(MethodView):
                 """
         if order_id is None:
             return manage_orders.execute_query_get_all_orders(get_all_orders_sql)
+        return manage_orders.execute_query_get_specific_order(get_single_order_sql,order_id)
 
         
     def execute_query_get_all_orders(self, sql):
@@ -79,6 +82,32 @@ class Orders(MethodView):
         finally:
             if conn is not None:
                 conn.close()  
+        
+    def execute_query_get_specific_order(self, sql, order_id):
+
+        conn = None
+        try:
+            params = config()
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+            cur.execute(sql,(order_id, ))
+            specific_order_data = cur.fetchall()
+            if not specific_order_data:
+                return jsonify({"Message":"No Order Found !!"})
+            columns = ('order_id','item_name','price', 'quantity', 'order_status', 'created_at', 'customer names',
+            'address','phone number')
+            results = []
+            for row in specific_order_data:
+                results.append(dict(zip(columns, row)))
+            return jsonify({'Specific_order':results})
+    
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()   
+
 
 
     def execute_add_order_query(self, sql, user_id, item_id, quantity):
