@@ -40,5 +40,5 @@ class OrderApiUrls(object):
         APP.add_url_rule('/api/v2/auth/login', view_func=auth_view, methods=['POST',])
         APP.add_url_rule('/api/v2/auth/signup', view_func=auth_view, methods=['POST',])
         APP.add_url_rule('/api/v2/menu', view_func=menu_view, methods=['POST',])
-        # APP.add_url_rule('/api/v2/menu', view_func=menu_view, methods=['GET',])
+        APP.add_url_rule('/api/v2/menu', view_func=menu_view, methods=['GET',])
 
