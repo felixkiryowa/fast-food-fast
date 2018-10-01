@@ -45,6 +45,38 @@ class AuthorizeUsers(MethodView):
                 new_user_data['name'],new_user_data['username'],hashed_password, 
                 new_user_data['address'],new_user_data['phone_number']
             )
+        #execute this block of code if its a login route
+        auth = request.authorization
+        if not auth or not  auth.password  or not auth.username:
+            return make_response(json.dumps(could_not_verify), 401, {'WWW-Authenticate' : 'Basic realm="Login required"'})
+        else:
+            return manage_users.execute_user_login_auth(auth.username, auth.password, could_not_verify)
+
+                         
+        
+    def execute_user_login_auth(self, username, password,error_message):
+
+        try:
+            params = config()
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM users WHERE username=%s",(username, ))
+            specific_user = cur.fetchall()
+            user_exist = cur.rowcount
+            if user_exist == 0:
+                return make_response(json.dumps(error_message), 401, {'WWW-Authenticate' : 'Basic realm="Login required"'})
+            user_password = specific_user[0][3]
+            if check_password_hash(user_password, password):
+                user_username = specific_user[0][2]
+                token = jwt.encode({'username':user_username, 'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, secret_key)
+                cur.close()
+                return jsonify({'token generated':token.decode('UTF-8')}) 
+            return make_response(json.dumps(error_message), 401, {'WWW-Authenticate' : 'Basic realm="Login required"'}) 
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
     
     def execute_add_user_query(self,sql,name,username,password,address,phone_number):
         conn = None
