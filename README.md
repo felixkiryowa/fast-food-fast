@@ -1,1 +1,1 @@
-API 
+[![Build Status](https://travis-ci.org/felixkiryowa/fast-food-fast.svg?branch=challenge3)](https://travis-ci.org/felixkiryowa/fast-food-fast)
