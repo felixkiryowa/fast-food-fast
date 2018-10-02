@@ -1,5 +1,7 @@
 import os
+
 from configparser import ConfigParser 
+
 database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'testing_db.ini')
 def config(filename=database_connection_path, section='postgresqldatabase'):
     # create a parser

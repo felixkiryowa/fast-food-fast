@@ -3,8 +3,8 @@ import psycopg2
 from flask import request
 from flask import jsonify
 from functools import wraps 
-from database.config import config
-from connection import secret_key
+from api.database.config import config
+from flask import current_app
 
 def token_required(f):
     @wraps(f)
@@ -15,7 +15,7 @@ def token_required(f):
         if not token:
             return jsonify({'message':'Token is missing!'}),401
         try:
-            data = jwt.decode(token, secret_key)
+            data = jwt.decode(token, current_app.config['SECRET_KEY'])
             params = config()
             conn = psycopg2.connect(**params)
             cur = conn.cursor()

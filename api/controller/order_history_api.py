@@ -5,7 +5,7 @@ This module defines api views
 import psycopg2
 import datetime
 import jwt
-from database.config import config
+from api.database.config import config
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -19,7 +19,7 @@ from flask import jsonify
 from flask import request
 from flask import Response
 from flask.views import MethodView
-from connection import APP
+# from connection import APP 
 
 
 class OrderHistory(MethodView):

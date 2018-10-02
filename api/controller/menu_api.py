@@ -5,7 +5,7 @@ This module defines api views
 import psycopg2
 import datetime
 import jwt
-from database.config import config
+from api.database.config import config
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -73,7 +73,7 @@ class Menu(MethodView):
             cur.execute(sql, (item_name, price, current_items,))
             # commit the changes to the database
             conn.commit()
-            return jsonify({'Message':'New Menu Item Has Been  Created'})
+            return jsonify({'Message':'New Menu Item Has Been  Created'}),201
             # close communication with the database
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:

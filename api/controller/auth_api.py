@@ -5,7 +5,7 @@ This module defines api views
 import psycopg2
 import datetime
 import jwt
-from database.config import config
+from api.database.config import config
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -20,7 +20,7 @@ from flask import request
 from flask import Response
 from flask.views import MethodView
 from api.models.users import Users
-from connection import secret_key
+from flask import current_app
 
 
 
@@ -68,9 +68,9 @@ class AuthorizeUsers(MethodView):
             user_password = specific_user[0][3]
             if check_password_hash(user_password, password):
                 user_username = specific_user[0][2]
-                token = jwt.encode({'username':user_username, 'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, secret_key)
+                token = jwt.encode({'username':user_username, 'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},current_app.config['SECRET_KEY'])
                 cur.close()
-                return jsonify({'token generated':token.decode('UTF-8')}) 
+                return jsonify({'token_generated':token.decode('UTF-8')}) 
             return make_response(json.dumps(error_message), 401, {'WWW-Authenticate' : 'Basic realm="Login required"'}) 
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
@@ -92,7 +92,7 @@ class AuthorizeUsers(MethodView):
             cur.execute(sql, (name, username, password, address, phone_number,))
             # commit the changes to the database
             conn.commit()
-            return jsonify({'Message':'New User Account Has Been  Created'})
+            return jsonify({'Message':'You registered successfully.'}),201
             # close communication with the database
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:

@@ -1,17 +1,13 @@
 """
 This Module runs flask application
+
 """
-from connection import APP
-from api.app.views import OrderApiUrls
+import os
+from api.connection import create_app
 
 
-
-
-APP.env = 'development'
-
-APP.testing = True
-
-OrderApiUrls.get_all_urls(APP)
+config_name = "development"
+APP = create_app(config_name)
 
 if __name__ == '__main__':
     APP.run(debug=True)
