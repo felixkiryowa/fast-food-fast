@@ -9,7 +9,7 @@ services:
 #add section to create travis table
 install:
   - pip install -r requirements.txt
-  - psql -c 'create database Fast_food_fast;' -U francis
+  - psql -c 'create database Fast_food_fast_testing;' -U  postgres
 # command to run tests
 script: 
 - pytest --cov=.
