@@ -1,7 +1,7 @@
 import os
 from configparser import ConfigParser 
-if os.getenv("APP_SETTINGS") == 'production':
-    database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'heroku_db.ini')
+if os.getenv("APP_SETTINGS") == 'testing':
+    database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'testing_db.ini')
 else:
     database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database.ini')
 
