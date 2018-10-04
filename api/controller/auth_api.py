@@ -39,14 +39,9 @@ class AuthorizeUsers(MethodView):
         if 'signup' in rule.rule:
             new_user_data = request.get_json()
             if('name' in new_user_data and  'username' in new_user_data 
-                and 'password' in new_user_data and
-                'address' in new_user_data and 'phone_number' in new_user_data and 'user_type' in new_user_data ):
-                manage_users.validate_sign_up(
-                   new_user_data,
-                   new_user_data['name'],new_user_data['username'],new_user_data['password'],
-                   new_user_data['address'],new_user_data['phone_number'],new_user_data['user_type']
-                )
-                
+            and 'password' in new_user_data and
+            'address' in new_user_data and 'phone_number' in new_user_data and  'user_type' in new_user_data ):
+               
                 hashed_password = generate_password_hash(new_user_data['password'], method='sha256')
 
                 """ insert a new user into the users table """
@@ -72,7 +67,7 @@ class AuthorizeUsers(MethodView):
         user_object = request.get_json()
 
         if('username' in user_object and 'password' in user_object):
-            return manage_users.validate_u_and_p(user_object,user_object['username'],user_object['password'])
+            # return manage_users.validate_u_and_p(user_object,user_object['username'],user_object['password'])
             return manage_users.execute_user_login_auth(user_object['username'], user_object['password'], could_not_verify)
         else:
             user_auth_object = "{'username': 'kiryowa22','password': 'user123'}"
@@ -95,15 +90,12 @@ class AuthorizeUsers(MethodView):
         if isinstance(user_object['username'],int)  or isinstance(user_object['username'],int):
             return jsonify({"Message" : "Username and Password  can not be an integer!"}),401
 
-    def validate_sign_up(self,signing_object,name, username, password, address, phone_number,user_type):
-        if (signing_object['name'] == None  or signing_object['username'] == None or
-            signing_object['password'] == None or signing_object['address'] == None or
-            signing_object['phone_number'] == None or signing_object['user_type'] == None) :
-            return jsonify({"Message" : "One or More of required But  Not Provided"}),400
-        # if not isinstance(user_object['username'],str) or not isinstance(user_object['password'],str):
-        #     return jsonify({"Message" : "Username and Password  can not be an Interger/Boolean other than a string"}),401
-        # if isinstance(user_object['username'],int)  or isinstance(user_object['username'],int):
-        #     return jsonify({"Message" : "Username and Password  can not be an integer!"}),401
+    # def validate_sign_up(self,signing_object,name, username, password, address, phone_number):
+    #     if (signing_object['name'] == ""  or signing_object['username'] == "" or
+    #         signing_object['password'] == "" or signing_object['address'] == "" or
+    #         signing_object['phone_number'] == "") :
+    #         return jsonify({"Message" : "One or More of required  Not Provided"}),400
+        
 
                          
         
@@ -144,6 +136,11 @@ class AuthorizeUsers(MethodView):
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
+            cur.execute("SELECT * FROM users WHERE name =%s",(name, ))
+            fetch_user = cur.rowcount
+
+            if fetch_user == 1:
+                return jsonify({'Message':'User already exists'}),409
             cur.execute(sql, (name, username, password, address, phone_number,user_type, ))
             # commit the changes to the database
             conn.commit()

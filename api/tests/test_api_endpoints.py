@@ -24,8 +24,7 @@ class OrderApiTestCase(unittest.TestCase):
         self.APP = create_app(config_name="testing")
         self.client = self.APP.test_client
         create_new_tables = CreateTables()
-        # This is the user test json data with a predefined username and password
-        hashed_password = generate_password_hash('user@123', method='sha256')
+        
         self.user_data = {
             "name":"David Buwembo",
             "username":"Papa",
