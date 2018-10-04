@@ -4,12 +4,13 @@ python:
   - "2.7.12"
 
 services:
--postgresql
+- postgresql
 # command to install dependencies
 #add section to create travis table
 install:
   - pip install -r requirements.txt
-  - psql -c 'create database Fast_food_fast_testing;' -U  postgres
+before_script:
+ - psql -c 'create database Fast_food_fast;'-U francis
 # command to run tests
 script: 
 - pytest --cov=.
