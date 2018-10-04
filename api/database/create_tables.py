@@ -4,7 +4,7 @@ from api.database.config import config
 
 class DatabaseTables(object):
     
-    def create_tables():
+    def create_tables(self):
         
         """ create tables in the PostgreSQL database"""
         commands = (
@@ -60,12 +60,13 @@ class DatabaseTables(object):
             cur.close()
             # commit the changes
             conn.commit()
+            print("success")
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
 
-tables_object = DatabaseTables()
-if __name__ ==  '__main__':
-    tables_object.create_tables()
+# tables_object = DatabaseTables()
+# if __name__ ==  '__main__':
+#     tables_object.create_tables()
