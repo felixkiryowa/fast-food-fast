@@ -2,5 +2,6 @@ UI
 .vscode/settings.json
 .pytest_cache/v/cache/nodeids
 *.pyc 
+env
 
 

@@ -14,7 +14,7 @@ def create_tables():
             password VARCHAR(255) NOT NULL,
             address VARCHAR(255) NULL,
             phone_number VARCHAR(200) NULL,
-            admin BOOLEAN  DEFAULT FALSE
+            user_type VARCHAR(200) NOT NULL
         )"""
         ,
         """

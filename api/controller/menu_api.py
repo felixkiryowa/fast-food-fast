@@ -27,7 +27,7 @@ class Menu(MethodView):
     @token_required
     def  post(self,current_user):
         
-        if not current_user[0][6]:
+        if not current_user[0][6] == "admin":
             return jsonify({'Message':'Cannot Perform That Function!'})
         # Get send order
         new_order_data = request.get_json()

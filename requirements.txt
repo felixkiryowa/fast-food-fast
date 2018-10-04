@@ -1,4 +1,4 @@
-
+adium-theme-ubuntu==0.3.4
 alembic==1.0.0
 asn1crypto==0.24.0
 astroid==1.6.5
@@ -36,8 +36,12 @@ Mako==1.0.7
 MarkupSafe==1.0
 marshmallow==2.15.5
 mccabe==0.6.1
+mock==2.0.0
 more-itertools==4.3.0
+nose2==0.8.0
 pathlib2==2.3.2
+pbr==4.2.0
+pick-colour-picker==1.0
 pipenv==2018.7.1
 pluggy==0.7.1
 psycopg2==2.7.5
@@ -45,6 +49,7 @@ py==1.6.0
 pycodestyle==2.3.1
 pycparser==2.18
 pyflakes==1.6.0
+pygobject==3.20.0
 PyJWT==1.6.4
 pylint==1.9.3
 pyOpenSSL==18.0.0
@@ -56,6 +61,8 @@ requests==2.19.1
 scandir==1.9.0
 singledispatch==3.4.0.3
 six==1.11.0
+SQLAlchemy==1.2.11
+unity-lens-photos==1.0
 urllib3==1.23
 virtualenv==16.0.0
 virtualenv-clone==0.3.0

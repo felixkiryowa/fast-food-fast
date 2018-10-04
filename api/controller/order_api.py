@@ -15,27 +15,39 @@ from werkzeug.security import generate_password_hash ,check_password_hash
 from flask import json
 from flask import Response
 from flask.views import MethodView
-# from connection import APP
 from token_required import  token_required
 
 
 class Orders(MethodView):
     """Class to define all the api end points"""
     
-    def  post(self):
-      
+    @token_required
+    def  post(self,current_user):
+
+        user_id = current_user[0][0]
+        if not current_user[0][6] == "user":
+            return jsonify({'Message':'Cannot Perform That Function!'})
+        
         """ insert a new order into the orders table """
         new_order = request.get_json()
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        
+        cur.execute("SELECT * FROM menu ORDER BY item_id DESC LIMIT 1")
+        last_menu_item = cur.fetchall()
+        item = last_menu_item[0][0]
+
 
         sql = """INSERT INTO orders(user_id,item_id,price,quantity)
                 VALUES(%s,%s,%s,%s) RETURNING order_id;"""
         return manage_orders.execute_add_order_query(
-            sql, new_order['user_id'], new_order['item_id'], new_order['quantity']
+            sql, user_id, item, new_order['quantity']
         )
         
     @token_required
     def get(self,current_user, order_id):
-        if not current_user[0][6]:
+        if not current_user[0][6] == "admin":
             return jsonify({'Message':'Cannot Perform That Function!'})
 
         get_single_order_sql =  """
@@ -59,7 +71,7 @@ class Orders(MethodView):
 
     @token_required   
     def put(self, current_user, order_id) :
-        if not current_user[0][6]:
+        if not current_user[0][6] == "admin":
             return jsonify({'Message':'Cannot Perform That Function!'})
         get_single_order_sql =  """
                     SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,users.name,users.address,users.phone_number
@@ -129,7 +141,7 @@ class Orders(MethodView):
             results = []
             for row in specific_order_data:
                 results.append(dict(zip(columns, row)))
-            return jsonify({'Specific_order':results})
+            return jsonify({'Specific_order':results}),200
     
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
@@ -159,7 +171,7 @@ class Orders(MethodView):
             cur.execute(sql, (user_id, item_id, order_price, quantity,))
             # commit the changes to the database
             conn.commit()
-            return jsonify({'Message':'New Customer Order Has Been  Created'})
+            return jsonify({'Message':'New Customer Order Has Been  Created'}),201
             # close communication with the database
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:

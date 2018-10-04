@@ -1,3 +1,4 @@
+import os
 
 class Config(object):
     """Parent configuration class."""
@@ -9,13 +10,14 @@ class Config(object):
 class DevelopmentConfig(Config):
     """Configurations for Development."""
     DEBUG = True
+    DATABASE_URI="postgresql://francis:atagenda1@localhost:5432/Fast_food_fast"
     SECRET="thisissecret"
 
 
 class TestingConfig(Config):
     """Configurations for Testing, with a separate test database."""
     TESTING = True
-    DATABASE_URI = 'postgresql://francis:atagenda1@localhost:5432/Fast_food_fast_testing'
+    DATABASE_URI = "postgresql://francis:atagenda1@localhost:5432/Fast_food_fast_testing"
     DEBUG = True
 
 class StagingConfig(Config):
