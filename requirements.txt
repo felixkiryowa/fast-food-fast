@@ -40,7 +40,6 @@ more-itertools==4.3.0
 nose2==0.8.0
 pathlib2==2.3.2
 pbr==4.2.0
-pick-colour-picker==1.0
 pipenv==2018.7.1
 pluggy==0.7.1
 psycopg2==2.7.5
