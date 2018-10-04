@@ -10,8 +10,9 @@ services:
 #add section to create travis table
 install:
   - pip install -r requirements.txt
+  CREATE USER youruser WITH ENCRYPTED PASSWORD 'yourpass'
 before_script:
-- psql -c 'create user francis with password atagenda1@;' -U postgres
+- psql -c "CREATE USER francis WITH PASSWORD 'atagenda1@';" -U postgres
 - psql -c 'create database Fast_food_fast_testing;' -U  postgres
 # command to run tests
 script: 
