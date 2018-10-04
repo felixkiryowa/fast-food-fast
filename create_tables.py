@@ -1,6 +1,6 @@
 import psycopg2
 
-from config import config
+from api.database.config import config
 
 def create_tables():
     

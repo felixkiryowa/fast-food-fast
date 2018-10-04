@@ -25,7 +25,7 @@ class Orders(MethodView):
     def  post(self,current_user):
 
         user_id = current_user[0][0]
-        if not current_user[0][6] == "user" or not current_user[0][6] == "admin" :
+        if not current_user[0][6] == "user" :
             return jsonify({'Message':'Cannot Perform That Function!'})
         
         """ insert a new order into the orders table """
