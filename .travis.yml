@@ -2,6 +2,9 @@ language: python
 python:
 
   - "2.7.12"
+
+services:
+-postgresql
 # command to install dependencies
 #add section to create travis table
 install:
