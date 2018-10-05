@@ -1,5 +1,5 @@
 """
-This Module runs flask application
+This Module runs flask application by the server
 
 """
 import os
