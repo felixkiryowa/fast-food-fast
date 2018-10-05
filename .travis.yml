@@ -1,0 +1,24 @@
+language: python
+python:
+
+  - "2.7.12"
+services:
+- postgresql
+# command to install dependencies
+#add section to create travis table
+install:
+  - pip install -r requirements.txt
+  CREATE USER youruser WITH ENCRYPTED PASSWORD 'yourpass'
+before_script:
+- psql -c "CREATE USER francis WITH PASSWORD 'atagenda1@';" -U postgres
+- psql -c 'create database Fast_food_fast_testing;' -U  postgres
+# command to run tests
+script: 
+- pytest --cov=.
+- coverage
+- coveralls
+after_success:
+- coveralls
+
+
+
