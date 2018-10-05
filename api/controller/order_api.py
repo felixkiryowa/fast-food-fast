@@ -25,24 +25,23 @@ class Orders(MethodView):
     def  post(self,current_user):
 
         user_id = current_user[0][0]
-        if not current_user[0][6] == "user" :
+        if not current_user[0][6] == "user":
             return jsonify({'Message':'Cannot Perform That Function!'})
-        
         """ insert a new order into the orders table """
         new_order = request.get_json()
-        params = config()
-        conn = psycopg2.connect(**params)
-        cur = conn.cursor()
+        # params = config()
+        # conn = psycopg2.connect(**params)
+        # cur = conn.cursor()
         
-        cur.execute("SELECT * FROM menu ORDER BY item_id DESC LIMIT 1")
-        last_menu_item = cur.fetchall()
-        item = last_menu_item[0][0]
+        # cur.execute("SELECT * FROM menu ORDER BY item_id DESC LIMIT 1")
+        # last_menu_item = cur.fetchall()
+        # item = last_menu_item[0][0]
 
 
         sql = """INSERT INTO orders(user_id,item_id,price,quantity)
                 VALUES(%s,%s,%s,%s) RETURNING order_id;"""
         return manage_orders.execute_add_order_query(
-            sql, user_id, item, new_order['quantity']
+            sql, user_id, new_order['item_id'], new_order['quantity']
         )
         
     @token_required

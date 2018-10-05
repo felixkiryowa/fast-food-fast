@@ -30,14 +30,31 @@ class Menu(MethodView):
         if not current_user[0][6] == "admin":
             return jsonify({'Message':'Cannot Perform That Function!'})
         # Get send order
-        new_order_data = request.get_json()
+        new_menu_data = request.get_json()
         """ insert a new menu item into the menu table """
 
         sql = """INSERT INTO menu(item_name,price,current_items)
                 VALUES(%s,%s,%s) RETURNING item_id;"""
-        return manage_menu.execute_add_menu_item_query(sql,
-            new_order_data['item_name'],new_order_data['price'],new_order_data['current_items']
-        )
+
+        if('item_name' in new_menu_data and 'price' in new_menu_data and 'current_items' in new_menu_data):
+            if not new_menu_data['item_name'] == "":
+                if isinstance(new_menu_data['price'],int) and isinstance(new_menu_data['current_items'],int):
+                    return manage_menu.execute_add_menu_item_query(sql,
+                        new_menu_data['item_name'],new_menu_data['price'],new_menu_data['current_items']
+                    )
+                return jsonify({"Message":"price and current items have to be integers"}),400
+            return jsonify({"Message":"Item name Can not be  an empty string"}),400
+        else:
+            menu_object = "{'item_name': 'Greens','price':50000,'current_items':40}"
+            bad_menu_object = {
+            "error": "Bad Menu Object",
+            "help of the correct auth object format":menu_object
+            }
+            response = Response(
+                json.dumps(bad_menu_object),
+                status=400, mimetype="application/json"
+                )
+            return response
 
     def get(self):
         conn = None
