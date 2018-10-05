@@ -1,18 +1,19 @@
 import unittest
 import os
 import json
-
+import psycopg2
 from api.connection import create_app
 from api.database.config import config
 
-# from ...connection import create_app
 
+# from ...connection import create_app
+from api.database.create_testing_database_tables import CreateTables
 
 from api.database.drop_table import DropTable
 
-from api.controller.auth_api import *
+# from api.controller.auth_api import *
 
-from api.database.create_tables import DatabaseTables
+from api.controller.order_api import Orders
 
 class OrderApiTestCase(unittest.TestCase):
 
@@ -22,12 +23,18 @@ class OrderApiTestCase(unittest.TestCase):
     def setUp(self):
 
         """Define test variables and initialize app."""
-        config_name = 'testing'
-        self.APP = create_app(config_name)
+
+        self.APP = create_app(config_name="testing")
         self.client = self.APP.test_client
-        self.db = DatabaseTables()
-        self.db.create_tables()
-        
+        create_new_tables = CreateTables()
+        orders_object = Orders()
+        self.params = config()
+        self.conn = psycopg2.connect(**self.params)
+        cur =  self.conn.cursor()
+        cur.execute("SELECT * FROM menu ORDER BY item_id DESC LIMIT 1")
+        last_menu_item = cur.fetchall()
+        item_id = last_menu_item[0][0]
+
         self.user_data = {
             "name":"David Buwembo",
             "username":"Papa",
@@ -64,6 +71,7 @@ class OrderApiTestCase(unittest.TestCase):
             "current_items":40
           }
         self.order = {
+            "item_id":item_id,
             "quantity":23 
         }
         self.client().post(
@@ -72,7 +80,6 @@ class OrderApiTestCase(unittest.TestCase):
         self.client().post(
             '/api/v2/auth/signup',content_type='application/json',
              data=json.dumps(self.customer_user))
-        
         res = self.client().post('/api/v2/auth/login',content_type='application/json',
          data=json.dumps(
              self.login_credentials_admin
@@ -97,15 +104,11 @@ class OrderApiTestCase(unittest.TestCase):
         'x-access-token': self.user_generated_token
         }
         
+        with self.APP.app_context():
+            # create all tables
+            create_new_tables.create_tables()
 
     def tearDown(self):
-        
-        """ create tables in the PostgreSQL database"""
-        command = (
-            """
-            DROP TABLE IF EXISTS users,orders,menu CASCADE
-            """
-            )
         conn = None
         try:
             # read the connection parameters
@@ -114,7 +117,18 @@ class OrderApiTestCase(unittest.TestCase):
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
             # create table one by one
-            cur.execute(command)
+            cur.execute("SELECT * FROM users ORDER BY user_id DESC LIMIT 1")
+            last_user = cur.fetchall()
+            cur.execute("DELETE  FROM users WHERE user_id=%s",(last_user[0][0], ))
+            # cur.execute("SELECT * FROM menu ORDER BY item_id DESC LIMIT 1")
+            # get_last_added_menu = cur.fetchall()
+            # cur.execute("DELETE  FROM menu WHERE item_id=%s",(get_last_added_menu[0][0], ))
+            # cur.execute("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1")
+            # get_last_added_order = cur.fetchall()
+            # cur.execute("DELETE  FROM orders WHERE  order_id=%s",(get_last_added_order[0][0], ))
+
+            conn.commit()
+
             # close communication with the PostgreSQL database server
             cur.close()
             # commit the changes
@@ -123,7 +137,6 @@ class OrderApiTestCase(unittest.TestCase):
             print(error)
         finally:
             if conn is not None:
- 
                 conn.close()
 
     def test_add_new_menu(self):
@@ -132,78 +145,129 @@ class OrderApiTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,201)
 
              
-    # def test_order_creation(self):
+    def test_order_creation(self):
 
-    #     """Test API  can create an order (POST request)"""
+        """Test API  can create an order (POST request)"""
 
-    #     res = self.client().post(
-    #         '/api/v2/users/orders', 
-    #         content_type='application/json',
-    #         data=json.dumps(
-    #             self.order
-    #         ),
-    #         headers = self.user_auth_header
-    #     )
-    #     result = json.loads(res.data.decode())
-    #     self.assertEqual(result['Message'], "New Customer Order Has Been  Created")
-    #     self.assertEqual(res.status_code, 201)
-        
-        
-    # def test_get_all_orders(self):
-    #     res = self.client().get('/api/v2/orders/',content_type='application/json',
-    #         data=json.dumps(self.menu),headers=self.auth_header)
-    #     self.assertEqual(res.status_code,200)
+        res = self.client().post(
+            '/api/v2/users/orders', 
+            content_type='application/json',
+            data=json.dumps(
+                self.order
+            ),
+            headers = self.user_auth_header
+        )
+        result = json.loads(res.data.decode())
+        self.assertEqual(result['Message'], "New Customer Order Has Been  Created")
+        self.assertEqual(res.status_code, 201)
 
-    # def test_get_single_order(self):
-    #     params = config()
-    #     conn = psycopg2.connect(**params)
-    #     cur = conn.cursor()
+    def test_get_single_order(self):
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
         
-    #     cur.execute("SELECT * FROM orders ORDER BY item_id DESC LIMIT 1")
-    #     last_order_item = cur.fetchall()
-    #     order_id = last_order_item[0][0]
-    #     get_string = str(order_id)
-    #     res = self.client().get('/api/v2/orders/'+get_string,content_type='application/json',
-    #         headers=self.auth_header)
-    #     self.assertEqual(res.status_code,200)
+        cur.execute("SELECT * FROM orders ORDER BY item_id DESC LIMIT 1")
+        last_order_item = cur.fetchall()
+        order_id = last_order_item[0][0]
+        get_string = str(order_id)
+        res = self.client().get('/api/v2/orders/'+get_string,content_type='application/json',
+            headers=self.auth_header)
+        self.assertEqual(res.status_code,200)
 
-    # def test_update_order(self):
-    #     params = config()
-    #     conn = psycopg2.connect(**params)
-    #     cur = conn.cursor()
+    def test_update_order(self):
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
         
-    #     cur.execute("SELECT * FROM orders ORDER BY item_id DESC LIMIT 1")
-    #     last_order_item = cur.fetchall()
-    #     order_id = last_order_item[0][0]
-    #     get_string = str(order_id)
-    #     result = self.client().put(
-    #     '/api/v2/orders/'+get_string, content_type='application/json',
-    #     data=json.dumps(
-    #       self.order_status
-    #     ),
-    #     headers=self.auth_header
-    #     )
-    #     self.assertEquals(result.status_code,200)
-    #     # get updated order
-    #     order = self.client().get('/api/v2/orders/'+get_string,content_type='application/json',
-    #         headers=self.auth_header)
-    #     self.assertEqual(order.status_code,200)
-    #     #get json data
-    #     # json_data = order.data
-    #     # self.assertEqual(json_data[0][5],"Decline")
+        cur.execute("SELECT * FROM orders ORDER BY item_id DESC LIMIT 1")
+        last_order_item = cur.fetchall()
+        order_id = last_order_item[0][0]
+        get_string = str(order_id)
+        result = self.client().put(
+        '/api/v2/orders/'+get_string, content_type='application/json',
+        data=json.dumps(
+          self.order_status
+        ),
+        headers=self.auth_header
+        )
+        self.assertEquals(result.status_code,200)
+        # get updated order
+        order = self.client().get('/api/v2/orders/'+get_string,content_type='application/json',
+            headers=self.auth_header)
+        self.assertEqual(order.status_code,200)
+        #get json data
+        # json_data = order.data
+        # self.assertEqual(json_data[0][5],"Decline")
+  
+        
+    def test_get_all_orders(self):
+        res = self.client().get('/api/v2/orders/',content_type='application/json',
+            data=json.dumps(self.menu),headers=self.auth_header)
+        self.assertEqual(res.status_code,200)
 
-    # def test_get_history_by_user(self):
-    #     params = config()
-    #     conn = psycopg2.connect(**params)
-    #     cur = conn.cursor()
+    
+    def test_get_history_by_user(self):
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
         
-    #     cur.execute("SELECT * FROM users ORDER BY user_id DESC LIMIT 1")
-    #     last_user_in_table = cur.fetchall()
-    #     user_id = last_user_in_table[0][0]
-    #     get_string = str(user_id)
-    #     res = self.client().get('/api/v2/users/orders/'+get_string,content_type='application/json',
-    #         headers=self.user_auth_header)
-    #     self.assertEqual(res.status_code,200)
+        cur.execute("SELECT * FROM users ORDER BY user_id DESC LIMIT 1")
+        last_user_in_table = cur.fetchall()
+        user_id = last_user_in_table[0][0]
+        get_string = str(user_id)
+        res = self.client().get('/api/v2/users/orders/'+get_string,content_type='application/json',
+            headers=self.user_auth_header)
+        self.assertEqual(res.status_code,200)
+
+    # def test_passed_parameter_if_not_string(self):
+
+
+    def test_get_a_single_order_route(self):
+        """
+        Test case for get specific order end endpoint
+        """
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        
+        cur.execute("SELECT * FROM orders ORDER BY item_id DESC LIMIT 1")
+        last_order_item = cur.fetchall()
+        order_id = last_order_item[0][0]
+        get_string = str(order_id)
+
+        result = self.client().get('/api/v2/orders/'+get_string,headers=self.auth_header)
+        self.assertEqual(result.status_code, 200)
+
+        result1 = self.client().get('/api/v2/orders/true',headers=self.auth_header)
+        self.assertEqual(result1.status_code, 404)
+
+        result2 = self.client().get('/api/v2/orders/@',headers=self.auth_header)
+        self.assertEqual(result2.status_code, 404)
+
+        
+    def test_update_a_single_order_route(self):
+        """
+        Test case for get specific order end endpoint
+        """
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        
+        cur.execute("SELECT * FROM orders ORDER BY item_id DESC LIMIT 1")
+        last_order_item = cur.fetchall()
+        order_id = last_order_item[0][0]
+        get_string = str(order_id)
+
+        result = self.client().get('/api/v2/orders/'+get_string,headers=self.auth_header)
+        self.assertEqual(result.status_code, 200)
+
+        result1 = self.client().get('/api/v2/orders/true',headers=self.auth_header)
+        self.assertEqual(result1.status_code, 404)
+
+        result2 = self.client().get('/api/v2/orders/@',headers=self.auth_header)
+        self.assertEqual(result2.status_code, 404)
+
+
 
 
         
