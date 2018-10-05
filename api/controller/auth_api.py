@@ -41,17 +41,18 @@ class AuthorizeUsers(MethodView):
             if('name' in new_user_data and  'username' in new_user_data 
             and 'password' in new_user_data and
             'address' in new_user_data and 'phone_number' in new_user_data and  'user_type' in new_user_data ):
-               
-                hashed_password = generate_password_hash(new_user_data['password'], method='sha256')
+                if not new_user_data['name'] == "" and not new_user_data['username']=="" and not  new_user_data['password']=="" and not new_user_data['address'] == "" and not new_user_data['phone_number'] == "" and  not new_user_data['user_type']=="":             
+                    hashed_password = generate_password_hash(new_user_data['password'], method='sha256')
 
-                """ insert a new user into the users table """
+                    """ insert a new user into the users table """
 
-                sql = """INSERT INTO users(name,username,password,address,phone_number,user_type)
-                        VALUES(%s,%s,%s,%s,%s,%s) RETURNING user_id;"""
-                return manage_users.execute_add_user_query(sql,
-                    new_user_data['name'],new_user_data['username'],hashed_password, 
-                    new_user_data['address'],new_user_data['phone_number'],new_user_data['user_type']
-                )
+                    sql = """INSERT INTO users(name,username,password,address,phone_number,user_type)
+                            VALUES(%s,%s,%s,%s,%s,%s) RETURNING user_id;"""
+                    return manage_users.execute_add_user_query(sql,
+                        new_user_data['name'],new_user_data['username'],hashed_password, 
+                        new_user_data['address'],new_user_data['phone_number'],new_user_data['user_type']
+                    )
+                return jsonify({"Message":"One or More of the passed data is null"}),400
 
             user_auth_object = "{'name':'francis kiryowa',username': 'kiryowa22','password': 'user123','address':'Makerere','phone_number':0789906754,'user_type':'admin/user'}"
             bad_sigining_object = {
@@ -67,8 +68,12 @@ class AuthorizeUsers(MethodView):
         user_object = request.get_json()
 
         if('username' in user_object and 'password' in user_object):
-            # return manage_users.validate_u_and_p(user_object,user_object['username'],user_object['password'])
-            return manage_users.execute_user_login_auth(user_object['username'], user_object['password'], could_not_verify)
+            if not user_object['username'] == "" and not user_object['password']=="":
+                if isinstance(user_object['username'],int) or isinstance(user_object['password'],int):
+                    return jsonify({"Message":"Password or Username can not be an integer"}),400 
+                return manage_users.execute_user_login_auth(user_object['username'], user_object['password'], could_not_verify)
+                           
+            return jsonify({"Message":"Password or Username is an empty string"}),400
         else:
             user_auth_object = "{'username': 'kiryowa22','password': 'user123'}"
             bad_auth_object = {
@@ -77,7 +82,7 @@ class AuthorizeUsers(MethodView):
             }
             response = Response(
                 json.dumps(bad_auth_object),
-                status=400, mimetype="appliation/json"
+                status=400, mimetype="application/json"
                 )
             return response
             # return jsonify({"Message" : "Username and Password Required"}),401

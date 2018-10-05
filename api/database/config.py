@@ -1,10 +1,6 @@
 import os
 from configparser import ConfigParser 
-if os.getenv("APP_SETTINGS") == 'production':
-    database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'testing_db.ini')
-else:
-    database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database.ini')
-
+database_connection_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database.ini')
 def config(filename=database_connection_path, section='postgresql'):
     # create a parser
     parser = ConfigParser()

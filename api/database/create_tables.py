@@ -1,9 +1,9 @@
 import psycopg2
 
-from api.database.config import config
+from config import config
 
-class DatabaseTables(object):
-    
+class CreateTables(object):
+
     def create_tables(self):
         
         """ create tables in the PostgreSQL database"""
@@ -60,13 +60,11 @@ class DatabaseTables(object):
             cur.close()
             # commit the changes
             conn.commit()
-            print("success")
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
 
-# tables_object = DatabaseTables()
-# if __name__ ==  '__main__':
-#     tables_object.create_tables()
+    # if __name__ ==  '__main__':
+    #     create_tables()
