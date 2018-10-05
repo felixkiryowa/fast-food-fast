@@ -19,14 +19,18 @@ from flask import jsonify
 from flask import request
 from flask import Response
 from flask.views import MethodView
-# from connection import APP 
+from token_required import  token_required
 
 
 class OrderHistory(MethodView):
+    
     """Class to define all the api end points"""
        
-        
-    def get(self, user_id):
+    @token_required
+    def get(self,current_user, user_id):
+
+        if not current_user[0][6] == "user":
+            return jsonify({'Message':'Cannot Perform That Function!'}),401
 
         get_single_order_sql =  """
                     SELECT orders.order_id,menu.item_name,orders.price,orders.quantity,orders.order_status,orders.created_at,users.name,users.address,users.phone_number
@@ -36,7 +40,7 @@ class OrderHistory(MethodView):
                     ORDER BY orders.order_id;
                 """
         return user_order_history.execute_query_get_specific_user_order_history(get_single_order_sql,user_id)
-            
+        
         
     def execute_query_get_specific_user_order_history(self, sql, user_id):
 
@@ -54,7 +58,7 @@ class OrderHistory(MethodView):
             results = []
             for row in specific_order_data:
                 results.append(dict(zip(columns, row)))
-            return jsonify({'User Order History':results})
+            return jsonify({'User Order History':results}),200
     
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:

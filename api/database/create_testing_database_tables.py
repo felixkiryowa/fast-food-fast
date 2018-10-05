@@ -1,6 +1,6 @@
 import psycopg2
 
-from testing_db_config import config
+from testing_db_config import config_test_db
 
 class CreateTables(object):
 
@@ -50,7 +50,7 @@ class CreateTables(object):
         conn = None
         try:
             # read the connection parameters
-            params = config()
+            params = config_test()
             # connect to the PostgreSQL server
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
